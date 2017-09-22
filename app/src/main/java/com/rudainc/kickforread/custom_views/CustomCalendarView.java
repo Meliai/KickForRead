@@ -93,8 +93,8 @@ public class CustomCalendarView extends LinearLayout {
     }
     private void setUpCalendarAdapter(){
         List<Date> dayValueInCells = new ArrayList<Date>();
-//         mQuery = new DatabaseQuery(context);
-//        List<EventObjects> mEvents = mQuery.getAllFutureEvents();
+         mQuery = new DatabaseQuery(context);
+        List<EventObjects> mEvents = mQuery.getAllFutureEvents();
         Calendar mCal = (Calendar)cal.clone();
         mCal.set(Calendar.DAY_OF_MONTH, 1);
         int firstDayOfTheMonth = mCal.get(Calendar.DAY_OF_WEEK) - 1;

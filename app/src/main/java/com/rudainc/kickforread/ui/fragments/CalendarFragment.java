@@ -1,23 +1,16 @@
-package com.rudainc.kickforread.mvp.fragments;
+package com.rudainc.kickforread.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 
 import com.rudainc.kickforread.R;
-import com.rudainc.kickforread.mvp.presenters.CalendarFragmentPresenter;
-import com.rudainc.kickforread.mvp.views.CalendarFragmentView;
 
-import java.util.Calendar;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CalendarFragment extends BaseFragment<CalendarFragmentPresenter> implements CalendarFragmentView {
+public class CalendarFragment extends BaseFragment{
 
 
 

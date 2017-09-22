@@ -1,4 +1,4 @@
-package com.rudainc.kickforread.mvp.activities;
+package com.rudainc.kickforread.ui.activities;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -9,27 +9,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.rudainc.kickforread.R;
-import com.rudainc.kickforread.mvp.presenters.BasePresenter;
-import com.rudainc.kickforread.mvp.views.BaseView;
 
-import butterknife.ButterKnife;
-
-public class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseView {
+public class BaseActivity extends AppCompatActivity {
 
     private View mCustomSnackBarView;
 
-    @Override
-    public void showProgress(ViewGroup view) {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
-    }
 
 
     @Override
