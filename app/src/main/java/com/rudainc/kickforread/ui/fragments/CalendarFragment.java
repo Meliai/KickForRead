@@ -50,7 +50,7 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
     private Context context;
     private GridAdapter mAdapter;
     private DatabaseQuery mQuery;
-    private ArrayList<Long> mEvents;
+    private ArrayList<Long> mEvents = new ArrayList<>();
     private Cursor mCursor;
 
     @Nullable
@@ -65,7 +65,7 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
 
         calendarGridView = (GridView) v.findViewById(R.id.calendar_grid);
 
-        setUpCalendarAdapter();
+
         setPreviousButtonClickEvent();
         setNextButtonClickEvent();
         setGridCellClickEvents();
@@ -118,7 +118,7 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
         }
         Log.d(TAG, "Number of date " + dayValueInCells.size());
         String sDate = formatter.format(cal.getTime());
-//        currentDate.setText(sDate);
+        currentDate.setText(sDate);
         if (getActivity()!=null) {
             mAdapter = new GridAdapter(getActivity(), dayValueInCells, cal, mEvents, this);
             calendarGridView.setAdapter(mAdapter);
@@ -172,7 +172,7 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
 
         if (!BaseActivity.getAllCheckedDays(data).isEmpty()) {
             mEvents = BaseActivity.getAllCheckedDays(data);
-//            mAdapter.updateMoviesList(mEvents);
+            setUpCalendarAdapter();
         }
     }
 
