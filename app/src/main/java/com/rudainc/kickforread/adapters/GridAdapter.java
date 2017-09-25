@@ -29,7 +29,7 @@ public class GridAdapter extends ArrayAdapter {
     private OnClickHandler mClickHandler;
 
     public GridAdapter(Context context, List<Date> monthlyDates, Calendar currentDate, ArrayList<Long> allEvents, OnClickHandler onClickHandler) {
-        super(context, R.layout.single_cell_layout);
+        super(context, R.layout.single_day_layout);
         this.context = context;
         this.monthlyDates = monthlyDates;
         this.currentDate = currentDate;
@@ -52,7 +52,7 @@ public class GridAdapter extends ArrayAdapter {
         int currentYear = currentDate.get(Calendar.YEAR);
         View view = convertView;
         if (view == null) {
-            view = mInflater.inflate(R.layout.single_cell_layout, parent, false);
+            view = mInflater.inflate(R.layout.single_day_layout, parent, false);
         }
         if (displayMonth == currentMonth && displayYear == currentYear) {
             view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorWhite));
@@ -60,13 +60,12 @@ public class GridAdapter extends ArrayAdapter {
             view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGrey));
         }
         //Add day to calendar
-        TextView cellNumber = (TextView) view.findViewById(R.id.calendar_date_id);
-        final CircleView mIndicator = (CircleView) view.findViewById(R.id.read_indicator);
-        cellNumber.setText(String.valueOf(dayValue));
-        //Add events to the calendar
-//        TextView eventIndicator = (TextView)view.findViewById(R.id.event_id);
+        TextView cellDay =view.findViewById(R.id.calendar_date_id);
+        final CircleView mIndicator = view.findViewById(R.id.read_indicator);
+        cellDay.setText(String.valueOf(dayValue));
+
         Calendar eventCalendar = Calendar.getInstance();
-        Log.i(TAG, allEvents.toString());
+
         if (!allEvents.isEmpty())
             for (int i = 0; i < allEvents.size(); i++) {
                 eventCalendar.setTime(new Date(allEvents.get(i)));

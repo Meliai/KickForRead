@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -17,7 +16,7 @@ import android.view.View;
 
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.database.CheckedDaysDbHelper;
-import com.rudainc.kickforread.database.FavoritesContract;
+import com.rudainc.kickforread.database.DaysContract;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,10 +68,9 @@ public class BaseActivity extends AppCompatActivity {
 
 
     public static ArrayList<Long> getAllCheckedDays(Cursor cursor) {
-
         ArrayList<Long> mArrayList = new ArrayList<>();
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            mArrayList.add(cursor.getLong(cursor.getColumnIndex(FavoritesContract.MovieEntry.COLUMN_DATE)));
+            mArrayList.add(cursor.getLong(cursor.getColumnIndex(DaysContract.DayEntry.COLUMN_DATE)));
         }
         Log.i("MYDB", mArrayList.size()+"");
         return mArrayList;
@@ -83,20 +81,20 @@ public class BaseActivity extends AppCompatActivity {
 
     public static void addDate(long date) {
         ContentValues cv = new ContentValues();
-        cv.put(FavoritesContract.MovieEntry.COLUMN_DATE,date);
+        cv.put(DaysContract.DayEntry.COLUMN_DATE,date);
 
-        mDb.insert(FavoritesContract.MovieEntry.TABLE_NAME, null, cv);
+        mDb.insert(DaysContract.DayEntry.TABLE_NAME, null, cv);
     }
 
 
 //    public void removeDa(String id) {
-//        mDb.delete(FavoritesContract.MovieEntry.TABLE_NAME, FavoritesContract.MovieEntry.COLUMN_MOVIE_ID + "=" + id, null);
+//        mDb.delete(DaysContract.DayEntry.TABLE_NAME, DaysContract.DayEntry.COLUMN_DATE + "=" + date, null);
 //    }
 
     public static boolean checkIsDataAlreadyInDBorNot(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        String Query = "Select * from " + FavoritesContract.MovieEntry.TABLE_NAME + " where " + FavoritesContract.MovieEntry.COLUMN_DATE + " = " + calendar.getTimeInMillis();
+        String Query = "Select * from " + DaysContract.DayEntry.TABLE_NAME + " where " + DaysContract.DayEntry.COLUMN_DATE + " = " + calendar.getTimeInMillis();
         Cursor cursor = mDb.rawQuery(Query, null);
         if (cursor.getCount() <= 0) {
             cursor.close();

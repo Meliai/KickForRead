@@ -7,44 +7,37 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class CircleView extends View
-{
+public class CircleView extends View {
     private static final int DEFAULT_CIRCLE_COLOR = Color.RED;
 
     private int circleColor = DEFAULT_CIRCLE_COLOR;
     private Paint paint;
 
-    public CircleView(Context context)
-    {
+    public CircleView(Context context) {
         super(context);
         init(context, null);
     }
 
-    public CircleView(Context context, AttributeSet attrs)
-    {
+    public CircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    private void init(Context context, AttributeSet attrs)
-    {
+    private void init(Context context, AttributeSet attrs) {
         paint = new Paint();
         paint.setAntiAlias(true);
     }
 
-    public void setCircleColor(int circleColor)
-    {
+    public void setCircleColor(int circleColor) {
         this.circleColor = circleColor;
         invalidate();
     }
 
-    public int getCircleColor()
-    {
+    public int getCircleColor() {
         return circleColor;
     }
 
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         int w = getWidth();

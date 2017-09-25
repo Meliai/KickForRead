@@ -20,9 +20,9 @@ public class CheckedDaysContentProvider extends ContentProvider {
     public static UriMatcher buildUriMatcher() {
 
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        final String authority = FavoritesContract.MovieEntry.CONTENT_AUTHORITY;
+        final String authority = DaysContract.DayEntry.CONTENT_AUTHORITY;
 
-        matcher.addURI(authority, FavoritesContract.MovieEntry.PATH_FAVORITES, CODE);
+        matcher.addURI(authority, DaysContract.DayEntry.PATH_DAYS, CODE);
 
         return matcher;
     }
@@ -48,7 +48,7 @@ public class CheckedDaysContentProvider extends ContentProvider {
                     for (ContentValues value : values) {
 
 
-                        long _id = db.insert(FavoritesContract.MovieEntry.TABLE_NAME, null, value);
+                        long _id = db.insert(DaysContract.DayEntry.TABLE_NAME, null, value);
                         if (_id != -1) {
                             rowsInserted++;
                         }
@@ -81,7 +81,7 @@ public class CheckedDaysContentProvider extends ContentProvider {
 
             case CODE: {
                 cursor = mFavoriteDbHelper.getReadableDatabase().query(
-                       FavoritesContract.MovieEntry.TABLE_NAME,
+                       DaysContract.DayEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -114,7 +114,7 @@ public class CheckedDaysContentProvider extends ContentProvider {
 
             case CODE:
                 numRowsDeleted = mFavoriteDbHelper.getWritableDatabase().delete(
-                       FavoritesContract.MovieEntry.TABLE_NAME,
+                       DaysContract.DayEntry.TABLE_NAME,
                         selection,
                         selectionArgs);
 
