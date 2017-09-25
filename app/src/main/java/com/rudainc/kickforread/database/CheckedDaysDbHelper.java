@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import static com.rudainc.kickforread.database.FavoritesContract.*;
 
 
-public class FavoritesDbHelper extends SQLiteOpenHelper {
+public class CheckedDaysDbHelper extends SQLiteOpenHelper {
 
     // The database name
     private static final String DATABASE_NAME = "favorites_movies.db";
@@ -17,7 +17,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Constructor
-    public FavoritesDbHelper(Context context) {
+    public CheckedDaysDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -27,16 +27,18 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
         // Create a table to hold waitlist data
         final String SQL_CREATE_FAVORITE_TABLE = "CREATE TABLE " + MovieEntry.TABLE_NAME + " (" +
                 MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                MovieEntry.COLUMN_MOVIE_ID + " TEXT NOT NULL, " +
-                MovieEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
-                MovieEntry.COLUMN_POSTER_PATH + " TEXT NOT NULL, " +
-                MovieEntry.COLUMN_RATE + " TEXT NOT NULL, " +
-                MovieEntry.COLUMN_OVERVIEW + " TEXT NOT NULL, " +
+
                 MovieEntry.COLUMN_DATE + " TEXT NOT NULL " +
                 "); ";
 
         sqLiteDatabase.execSQL(SQL_CREATE_FAVORITE_TABLE);
     }
+
+//    MovieEntry.COLUMN_MOVIE_ID + " TEXT NOT NULL, " +
+//    MovieEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
+//    MovieEntry.COLUMN_POSTER_PATH + " TEXT NOT NULL, " +
+//    MovieEntry.COLUMN_RATE + " TEXT NOT NULL, " +
+//    MovieEntry.COLUMN_OVERVIEW + " TEXT NOT NULL, " +
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {

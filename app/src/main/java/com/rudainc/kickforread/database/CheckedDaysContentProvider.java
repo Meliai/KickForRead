@@ -8,13 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-public class FavoritesContentProvider extends ContentProvider {
+public class CheckedDaysContentProvider extends ContentProvider {
 
 
     public static final int CODE = 100;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
-    private FavoritesDbHelper mFavoriteDbHelper;
+    private CheckedDaysDbHelper mFavoriteDbHelper;
 
 
     public static UriMatcher buildUriMatcher() {
@@ -31,7 +31,7 @@ public class FavoritesContentProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
 
-        mFavoriteDbHelper = new FavoritesDbHelper(getContext());
+        mFavoriteDbHelper = new CheckedDaysDbHelper(getContext());
         return true;
     }
 
