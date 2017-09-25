@@ -1,7 +1,6 @@
 package com.rudainc.kickforread.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -25,20 +24,22 @@ public class GridAdapter extends ArrayAdapter {
     private List<Date> monthlyDates;
     private Calendar currentDate;
     private List<EventObjects> allEvents;
+    private OnClickHandler mClickHandler;
 
-    public GridAdapter(Context context, List<Date> monthlyDates, Calendar currentDate, List<EventObjects> allEvents) {
+    public GridAdapter(Context context, List<Date> monthlyDates, Calendar currentDate, List<EventObjects> allEvents, OnClickHandler onClickHandler) {
         super(context, R.layout.single_cell_layout);
         this.context = context;
         this.monthlyDates = monthlyDates;
         this.currentDate = currentDate;
         this.allEvents = allEvents;
         mInflater = LayoutInflater.from(context);
+        this.mClickHandler = onClickHandler;
     }
 
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         Date mDate = monthlyDates.get(position);
         Calendar dateCal = Calendar.getInstance();
         dateCal.setTime(mDate);
@@ -75,6 +76,9 @@ public class GridAdapter extends ArrayAdapter {
             @Override
             public void onClick(View view) {
                 mIndicator.setVisibility(View.VISIBLE);
+
+                Date date = monthlyDates.get(position);
+                mClickHandler.onClick(date);
             }
         });
         return view;
@@ -83,13 +87,19 @@ public class GridAdapter extends ArrayAdapter {
     public int getCount() {
         return monthlyDates.size();
     }
+
     @Nullable
     @Override
     public Object getItem(int position) {
         return monthlyDates.get(position);
     }
+
     @Override
     public int getPosition(Object item) {
         return monthlyDates.indexOf(item);
+    }
+
+    public interface OnClickHandler {
+        void onClick(Date date);
     }
 }

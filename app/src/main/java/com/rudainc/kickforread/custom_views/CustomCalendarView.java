@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class CustomCalendarView extends LinearLayout {
+public class CustomCalendarView extends LinearLayout implements GridAdapter.OnClickHandler{
     private static final String TAG = CustomCalendarView.class.getSimpleName();
     private ImageView previousButton, nextButton;
     private TextView currentDate;
@@ -70,7 +70,7 @@ public class CustomCalendarView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 cal.add(Calendar.MONTH, -1);
-                setUpCalendarAdapter();
+//                setUpCalendarAdapter();
             }
         });
     }
@@ -79,7 +79,7 @@ public class CustomCalendarView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 cal.add(Calendar.MONTH, 1);
-                setUpCalendarAdapter();
+//                setUpCalendarAdapter();
             }
         });
     }
@@ -93,8 +93,8 @@ public class CustomCalendarView extends LinearLayout {
     }
     private void setUpCalendarAdapter(){
         List<Date> dayValueInCells = new ArrayList<Date>();
-         mQuery = new DatabaseQuery(context);
-        List<EventObjects> mEvents = mQuery.getAllFutureEvents();
+//         mQuery = new DatabaseQuery(context);
+      //  List<EventObjects> mEvents = mQuery.getAllFutureEvents();
         Calendar mCal = (Calendar)cal.clone();
         mCal.set(Calendar.DAY_OF_MONTH, 1);
         int firstDayOfTheMonth = mCal.get(Calendar.DAY_OF_WEEK) - 1;
@@ -106,7 +106,12 @@ public class CustomCalendarView extends LinearLayout {
         Log.d(TAG, "Number of date " + dayValueInCells.size());
         String sDate = formatter.format(cal.getTime());
         currentDate.setText(sDate);
-        mAdapter = new GridAdapter(context, dayValueInCells, cal, null);
+        mAdapter = new GridAdapter(context, dayValueInCells, cal, null, this);
         calendarGridView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onClick(Date date) {
+        Log.i("DATE", date +"");
     }
 }

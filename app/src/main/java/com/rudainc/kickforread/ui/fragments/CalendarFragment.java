@@ -2,11 +2,15 @@ package com.rudainc.kickforread.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.rudainc.kickforread.R;
+import com.rudainc.kickforread.adapters.GridAdapter;
+
+import java.util.Date;
 
 import butterknife.ButterKnife;
 
@@ -29,5 +33,6 @@ public class CalendarFragment extends BaseFragment{
         super.onViewCreated(view, savedInstanceState);
 
     }
+
 
 }

@@ -5,7 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.rudainc.popularmovies.database.FavoritesContract.*;
+import static com.rudainc.kickforread.database.FavoritesContract.*;
+
 
 public class FavoritesDbHelper extends SQLiteOpenHelper {
 
