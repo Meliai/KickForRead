@@ -1,5 +1,6 @@
 package com.rudainc.kickforread.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -33,8 +34,9 @@ public class MainActivity extends BaseActivity
     Toolbar toolbar;
 
     @OnClick(R.id.fab)
-    void addBook(){
-       showSnackBar("Add book activity", false);
+    void addBook() {
+        Intent intent = new Intent(MainActivity.this, AddBookActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -91,7 +93,7 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-           changeFragment(new CalendarFragment());
+            changeFragment(new CalendarFragment());
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_share) {

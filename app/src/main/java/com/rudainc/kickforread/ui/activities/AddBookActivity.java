@@ -21,4 +21,6 @@ public class AddBookActivity extends BaseActivity {
 
     }
 
+    public void paintClicked(View view) {
+    }
 }

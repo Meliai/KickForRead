@@ -64,8 +64,7 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
         setUpCalendarAdapter();
         setPreviousButtonClickEvent();
         setNextButtonClickEvent();
-        setGridCellClickEvents();
-        Log.d(TAG, "I need to call this method");
+
         return v;
     }
 
@@ -89,14 +88,6 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
         });
     }
 
-    private void setGridCellClickEvents() {
-        calendarGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(context, "Clicked " + position, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 
     private void setUpCalendarAdapter() {
         List<Date> dayValueInCells = new ArrayList<Date>();
@@ -108,7 +99,6 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
             dayValueInCells.add(mCal.getTime());
             mCal.add(Calendar.DAY_OF_MONTH, 1);
         }
-        Log.d(TAG, "Number of date " + dayValueInCells.size());
         String sDate = formatter.format(cal.getTime());
         currentDate.setText(sDate);
         if (getActivity() != null) {

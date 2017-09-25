@@ -20,4 +20,5 @@
     <string name="sat">SAT</string>
     <string name="last_date">30</string>
     <string name="title_activity_add_book">AddBookActivity</string>
+    <string name="paint">color</string>
 </resources>
