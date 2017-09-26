@@ -17,6 +17,7 @@ import android.view.View;
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.database.CheckedDaysDbHelper;
 import com.rudainc.kickforread.database.DaysContract;
+import com.rudainc.kickforread.reminder.ReminderUtilities;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,6 +34,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         CheckedDaysDbHelper dbHelper = new CheckedDaysDbHelper(this);
         mDb = dbHelper.getWritableDatabase();
+        ReminderUtilities.scheduleChargingReminder(this);
     }
 
     public boolean isOnline(Context context) {

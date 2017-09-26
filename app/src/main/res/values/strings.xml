@@ -24,4 +24,8 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="widget_background">widget</string>
+
+    <!--Reminder notifications-->
+    <string name="read_reminder_notification_title">This is your KICK for READING</string>
+    <string name="read_reminder_notification_body">Have you read today?</string>
 </resources>

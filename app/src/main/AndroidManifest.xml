@@ -40,6 +40,20 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/book_info_widget_info" />
         </receiver>
+
+        <!--This is required for immediate syncs -->
+        <service
+            android:name=".reminder.ReadReminderIntentService"
+            android:exported="false"/>
+
+        <!-- This is the Service declaration used in conjunction with FirebaseJobDispatcher -->
+        <service
+            android:name=".reminder.ReadReminderFirebaseJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
