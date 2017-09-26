@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.adapters.GridAdapter;
 import com.rudainc.kickforread.database.DaysContract;
@@ -46,6 +48,8 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
     TextView currentDate;
     @BindView(R.id.calendar_grid)
     GridView calendarGridView;
+    @BindView(R.id.my_ads_banner)
+    AdView mAdView;
 
     private static final int MAX_CALENDAR_COLUMN = 42;
     private SimpleDateFormat formatter = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
@@ -109,11 +113,10 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
 
     @Override
     public void onClick(Date date) {
-        if (!BaseActivity.checkIsDataAlreadyInDBorNot(date)) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        if (!BaseActivity.checkIsDataAlreadyInDBorNot(calendar.getTimeInMillis())) {
             BaseActivity.addDate(calendar.getTimeInMillis());
-            Log.i("DATE", date + "");
 //            mCursor.setNotificationUri(getContext().getContentResolver(), DaysContract.DayEntry.CONTENT_URI);
         }
     }
@@ -158,4 +161,10 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
     }
 
 
+
+    private void loadAds() {
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
 }

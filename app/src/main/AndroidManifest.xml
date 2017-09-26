@@ -22,14 +22,22 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.activities.AddBookActivity"
+            android:label="@string/title_activity_add_book"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+
         <provider
             android:name=".database.CheckedDaysContentProvider"
             android:authorities="com.rudainc.kickforread"
             android:exported="false" />
 
-        <activity
-            android:name=".ui.activities.AddBookActivity"
-            android:label="@string/title_activity_add_book" />
+
 
         <receiver android:name=".widget.BookInfoWidget">
             <intent-filter>

@@ -21,7 +21,6 @@ import com.rudainc.kickforread.reminder.ReminderUtilities;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -93,10 +92,10 @@ public class BaseActivity extends AppCompatActivity {
 //        mDb.delete(DaysContract.DayEntry.TABLE_NAME, DaysContract.DayEntry.COLUMN_DATE + "=" + date, null);
 //    }
 
-    public static boolean checkIsDataAlreadyInDBorNot(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        String Query = "Select * from " + DaysContract.DayEntry.TABLE_NAME + " where " + DaysContract.DayEntry.COLUMN_DATE + " = " + calendar.getTimeInMillis();
+    public static boolean checkIsDataAlreadyInDBorNot(long date) {
+        Log.i("DATE", date + "");
+
+        String Query = "Select * from " + DaysContract.DayEntry.TABLE_NAME + " where " + DaysContract.DayEntry.COLUMN_DATE + " = " + date;
         Cursor cursor = mDb.rawQuery(Query, null);
         if (cursor.getCount() <= 0) {
             cursor.close();

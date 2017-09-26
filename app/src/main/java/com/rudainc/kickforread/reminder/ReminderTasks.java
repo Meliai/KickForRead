@@ -18,32 +18,35 @@ package com.rudainc.kickforread.reminder;
 import android.content.Context;
 import android.util.Log;
 
+import com.rudainc.kickforread.ui.activities.BaseActivity;
 import com.rudainc.kickforread.utils.KickForReadKeys;
-import com.rudainc.kickforread.utils.KickForReadPreferences;
 import com.rudainc.kickforread.utils.NotificationUtils;
 
+import java.util.Calendar;
 
-public class ReminderTasks implements KickForReadKeys{
+
+public class ReminderTasks implements KickForReadKeys {
 
     public static void executeTask(Context context, String action) {
-        Log.i("WTF",action);
-//        if (ACTION_READ.equals(action)) {
-//            alreadyRead(context);
-//        } else if (ACTION_DISMISS_NOTIFICATION.equals(action)) {
-//            NotificationUtils.clearAllNotifications(context);
-//        } else
-            if (ACTION_CHARGING_REMINDER.equals(action)) {
+        Log.i("WTF", action);
+        if (ACTION_READ.equals(action)) {
+            alreadyRead(context);
+        } else if (ACTION_DISMISS_NOTIFICATION.equals(action)) {
+            NotificationUtils.clearAllNotifications(context);
+        } else if (ACTION_CHARGING_REMINDER.equals(action)) {
             issueChargingReminder(context);
         }
     }
 
     private static void alreadyRead(Context context) {
-        KickForReadPreferences.incrementWaterCount(context);
-        NotificationUtils.clearAllNotifications(context);
+        Calendar calendar = Calendar.getInstance();
+        if (!BaseActivity.checkIsDataAlreadyInDBorNot(calendar.getTimeInMillis())) {
+            BaseActivity.addDate(calendar.getTimeInMillis());
+            NotificationUtils.clearAllNotifications(context);
+        }
     }
 
     private static void issueChargingReminder(Context context) {
-        KickForReadPreferences.incrementChargingReminderCount(context);
         NotificationUtils.remindUserBecauseCharging(context);
     }
 

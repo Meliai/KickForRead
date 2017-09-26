@@ -54,8 +54,8 @@ public class NotificationUtils implements KickForReadKeys{
                         context.getString(R.string.read_reminder_notification_body)))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent(context))
-                .addAction(readAction(context))
-                .addAction(ignoreReminderAction(context))
+//                .addAction(readAction(context))
+//                .addAction(ignoreReminderAction(context))
                 .setAutoCancel(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -84,17 +84,17 @@ public class NotificationUtils implements KickForReadKeys{
     }
 
     private static Action readAction(Context context) {
-        Intent incrementWaterCountIntent = new Intent(context, ReadReminderIntentService.class);
-        incrementWaterCountIntent.setAction(ReminderTasks.ACTION_READ);
+        Intent read = new Intent(context, ReadReminderIntentService.class);
+        read.setAction(ReminderTasks.ACTION_READ);
         PendingIntent incrementWaterPendingIntent = PendingIntent.getService(
                 context,
                 ACTION_READ_PENDING_INTENT_ID,
-                incrementWaterCountIntent,
+                read,
                 PendingIntent.FLAG_CANCEL_CURRENT);
-        Action drinkWaterAction = new Action(R.drawable.ic_keyboard_arrow_right_black_48dp,
+        Action readAction = new Action(R.drawable.ic_keyboard_arrow_right_black_48dp,
                 "I did it!",
                 incrementWaterPendingIntent);
-        return drinkWaterAction;
+        return readAction;
     }
 
     private static PendingIntent contentIntent(Context context) {
