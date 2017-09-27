@@ -1,37 +1,44 @@
 package com.rudainc.kickforread.models;
 
 public class BooksModel {
-    private int id;
-    private String title;
-    private long start_date;
-    private String category;
-    private int label;
 
-    public BooksModel(int id, String title, long start_date, String category, int label) {
-        this.id = id;
+    private String title;
+    private String author;
+    private String category;
+    private String label;
+    private String start_date;
+    private String isFinished;
+
+    public BooksModel(String title, String author, String category, String label, String start_date, String isFinished) {
         this.title = title;
-        this.start_date = start_date;
+        this.author = author;
         this.category = category;
         this.label = label;
-    }
-
-    public int getId() {
-        return id;
+        this.start_date = start_date;
+        this.isFinished = isFinished;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public long getStart_date() {
-        return start_date;
+    public String getAuthor() {
+        return author;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public int getLabel() {
+    public String getLabel() {
         return label;
+    }
+
+    public String getStart_date() {
+        return start_date;
+    }
+
+    public String getIsFinished() {
+        return isFinished;
     }
 }

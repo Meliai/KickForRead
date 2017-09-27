@@ -15,24 +15,30 @@ import android.util.Log;
 import android.view.View;
 
 import com.rudainc.kickforread.R;
+import com.rudainc.kickforread.database.BooksContract;
+import com.rudainc.kickforread.database.BooksDbHelper;
 import com.rudainc.kickforread.database.CheckedDaysDbHelper;
 import com.rudainc.kickforread.database.DaysContract;
+import com.rudainc.kickforread.models.BooksModel;
 import com.rudainc.kickforread.reminder.ReminderUtilities;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class BaseActivity extends AppCompatActivity {
 
     private View mCustomSnackBarView;
 
-    private static SQLiteDatabase mDb;
+    private static SQLiteDatabase mDbDays;
+    private static SQLiteDatabase mDbBooks;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CheckedDaysDbHelper dbHelper = new CheckedDaysDbHelper(this);
-        mDb = dbHelper.getWritableDatabase();
+        mDbDays = dbHelper.getWritableDatabase();
+        BooksDbHelper booksDbHelper = new BooksDbHelper(this);
+        mDbBooks = booksDbHelper.getWritableDatabase();
+
         ReminderUtilities.scheduleChargingReminder(this);
     }
 
@@ -84,19 +90,66 @@ public class BaseActivity extends AppCompatActivity {
         ContentValues cv = new ContentValues();
         cv.put(DaysContract.DayEntry.COLUMN_DATE,date);
 
-        mDb.insert(DaysContract.DayEntry.TABLE_NAME, null, cv);
+        mDbDays.insert(DaysContract.DayEntry.TABLE_NAME, null, cv);
     }
 
 
 //    public void removeDa(String id) {
-//        mDb.delete(DaysContract.DayEntry.TABLE_NAME, DaysContract.DayEntry.COLUMN_DATE + "=" + date, null);
+//        mDbDays.delete(DaysContract.DayEntry.TABLE_NAME, DaysContract.DayEntry.COLUMN_DATE + "=" + date, null);
 //    }
 
     public static boolean checkIsDataAlreadyInDBorNot(long date) {
         Log.i("DATE", date + "");
 
         String Query = "Select * from " + DaysContract.DayEntry.TABLE_NAME + " where " + DaysContract.DayEntry.COLUMN_DATE + " = " + date;
-        Cursor cursor = mDb.rawQuery(Query, null);
+        Cursor cursor = mDbDays.rawQuery(Query, null);
+        if (cursor.getCount() <= 0) {
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
+
+    public static ArrayList<BooksModel> getAllBooks(Cursor cursor) {
+        ArrayList<BooksModel> mArrayList = new ArrayList<>();
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            mArrayList.add(new BooksModel(   cursor.getString(cursor.getColumnIndex(BooksContract.BookEntry.COLUMN_TITLE)),
+                    cursor.getString(cursor.getColumnIndex(BooksContract.BookEntry.COLUMN_AUTHOR)),
+                    cursor.getString(cursor.getColumnIndex(BooksContract.BookEntry.COLUMN_CATEGORY)),
+                    cursor.getString(cursor.getColumnIndex(BooksContract.BookEntry.COLUMN_LABEL)),
+                    cursor.getString(cursor.getColumnIndex(BooksContract.BookEntry.COLUMN_START_DAY)),
+                    cursor.getString(cursor.getColumnIndex(BooksContract.BookEntry.COLUMN_IS_FINISHED))));
+        }
+        Log.i("MYDB", mArrayList.size()+"");
+        return mArrayList;
+    }
+
+
+
+
+    public static void addBook(BooksModel book) {
+        ContentValues cv = new ContentValues();
+        cv.put(BooksContract.BookEntry.COLUMN_TITLE,book.getTitle());
+        cv.put(BooksContract.BookEntry.COLUMN_AUTHOR,book.getAuthor());
+        cv.put(BooksContract.BookEntry.COLUMN_CATEGORY,book.getCategory());
+        cv.put(BooksContract.BookEntry.COLUMN_LABEL,book.getLabel());
+        cv.put(BooksContract.BookEntry.COLUMN_START_DAY,book.getStart_date());
+        cv.put(BooksContract.BookEntry.COLUMN_IS_FINISHED,book.getIsFinished());
+
+        mDbBooks.insert(BooksContract.BookEntry.TABLE_NAME, null, cv);
+    }
+
+
+//    public void removeDa(String id) {
+//        mDbDays.delete(DaysContract.DayEntry.TABLE_NAME, DaysContract.DayEntry.COLUMN_DATE + "=" + date, null);
+//    }
+
+    public static boolean checkIsBookAlreadyInDBorNot(BooksModel book) {
+        Log.i("book", book.getTitle() + "");
+
+        String Query = "Select * from " + BooksContract.BookEntry.TABLE_NAME + " where " + BooksContract.BookEntry.COLUMN_TITLE + " = " + book.getTitle();
+        Cursor cursor = mDbBooks.rawQuery(Query, null);
         if (cursor.getCount() <= 0) {
             cursor.close();
             return false;

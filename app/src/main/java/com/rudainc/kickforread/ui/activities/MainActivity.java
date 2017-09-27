@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.ui.fragments.CalendarFragment;
-import com.rudainc.kickforread.ui.fragments.ProgressFragment;
+import com.rudainc.kickforread.ui.fragments.BooksStatusFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -96,7 +96,7 @@ public class MainActivity extends BaseActivity
         if (id == R.id.nav_camera) {
             changeFragment(new CalendarFragment());
         } else if (id == R.id.nav_gallery) {
-            changeFragment(new ProgressFragment());
+            changeFragment(new BooksStatusFragment());
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

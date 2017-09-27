@@ -69,6 +69,8 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
         setPreviousButtonClickEvent();
         setNextButtonClickEvent();
 
+        loadAds();
+
         return v;
     }
 
@@ -163,7 +165,6 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
 
 
     private void loadAds() {
-
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }

@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -37,7 +39,10 @@
             android:authorities="com.rudainc.kickforread"
             android:exported="false" />
 
-
+        <provider
+            android:name=".database.BooksListContentProvider"
+            android:authorities="com.rudainc.popularmovies"
+            android:exported="false"/>
 
         <receiver android:name=".widget.BookInfoWidget">
             <intent-filter>
