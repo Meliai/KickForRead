@@ -62,7 +62,7 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
 
             case ID_LOADER:
                 /* URI for all rows of weather data in our weather table */
-                Uri movieQueryUri = BooksContract.BookEntry.CONTENT_URI;
+                Uri booksQuery = BooksContract.BookEntry.CONTENT_URI;
                 /* Sort order: Ascending by date */
 //                String sortOrder = BooksContract.BookEntry.C + " ASC";
                 /*
@@ -73,7 +73,7 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
 
 
                 return new CursorLoader(getActivity(),
-                        movieQueryUri,
+                        booksQuery,
                         null,
                         null,
                         null,

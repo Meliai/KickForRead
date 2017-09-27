@@ -20,7 +20,7 @@ public class BooksDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        final String SQL_CREATE_FAVORITE_TABLE = "CREATE TABLE " + BookEntry.TABLE_NAME + " (" +
+        final String SQL_CREATE_BOOK_TABLE = "CREATE TABLE " + BookEntry.TABLE_NAME + " (" +
                 BookEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 BookEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
                 BookEntry.COLUMN_AUTHOR + " TEXT NOT NULL, " +
@@ -30,7 +30,7 @@ public class BooksDbHelper extends SQLiteOpenHelper {
                 BookEntry.COLUMN_IS_FINISHED + " TEXT NOT NULL " +
                 "); ";
 
-        sqLiteDatabase.execSQL(SQL_CREATE_FAVORITE_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_BOOK_TABLE);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class CheckedDaysContentProvider extends ContentProvider {
     public static final int CODE = 100;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
-    private CheckedDaysDbHelper mFavoriteDbHelper;
+    private CheckedDaysDbHelper mCheckedDaysDbHelper;
 
 
     public static UriMatcher buildUriMatcher() {
@@ -30,14 +30,13 @@ public class CheckedDaysContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-
-        mFavoriteDbHelper = new CheckedDaysDbHelper(getContext());
+        mCheckedDaysDbHelper = new CheckedDaysDbHelper(getContext());
         return true;
     }
 
     @Override
     public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
-        final SQLiteDatabase db = mFavoriteDbHelper.getWritableDatabase();
+        final SQLiteDatabase db = mCheckedDaysDbHelper.getWritableDatabase();
 
         switch (sUriMatcher.match(uri)) {
 
@@ -80,7 +79,7 @@ public class CheckedDaysContentProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
 
             case CODE: {
-                cursor = mFavoriteDbHelper.getReadableDatabase().query(
+                cursor = mCheckedDaysDbHelper.getReadableDatabase().query(
                        DaysContract.DayEntry.TABLE_NAME,
                         projection,
                         selection,
@@ -113,7 +112,7 @@ public class CheckedDaysContentProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
 
             case CODE:
-                numRowsDeleted = mFavoriteDbHelper.getWritableDatabase().delete(
+                numRowsDeleted = mCheckedDaysDbHelper.getWritableDatabase().delete(
                        DaysContract.DayEntry.TABLE_NAME,
                         selection,
                         selectionArgs);
@@ -135,19 +134,19 @@ public class CheckedDaysContentProvider extends ContentProvider {
 
     @Override
     public String getType(@NonNull Uri uri) {
-        throw new RuntimeException("We are not implementing getType in Sunshine.");
+        throw new RuntimeException("We are not implementing getType in KickForRead.");
     }
 
 
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
         throw new RuntimeException(
-                "We are not implementing insert in FavoritesDb. Use bulkInsert instead");
+                "We are not implementing insert in CheckedDaysDb. Use bulkInsert instead");
     }
 
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        throw new RuntimeException("We are not implementing update in FavoritesDb");
+        throw new RuntimeException("We are not implementing update in CheckedDaysDb");
     }
 
 

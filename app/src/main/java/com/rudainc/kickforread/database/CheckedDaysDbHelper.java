@@ -11,7 +11,7 @@ import static com.rudainc.kickforread.database.DaysContract.*;
 public class CheckedDaysDbHelper extends SQLiteOpenHelper {
 
     // The database name
-    private static final String DATABASE_NAME = "favorites_movies.db";
+    private static final String DATABASE_NAME = "checked_days.db";
 
     // If you change the database schema, you must increment the database version
     private static final int DATABASE_VERSION = 1;
@@ -24,12 +24,12 @@ public class CheckedDaysDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        final String SQL_CREATE_FAVORITE_TABLE = "CREATE TABLE " + DayEntry.TABLE_NAME + " (" +
+        final String SQL_CREATE_DAYS_TABLE = "CREATE TABLE " + DayEntry.TABLE_NAME + " (" +
                 DayEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 DayEntry.COLUMN_DATE + " TEXT NOT NULL " +
                 "); ";
 
-        sqLiteDatabase.execSQL(SQL_CREATE_FAVORITE_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_DAYS_TABLE);
     }
 
 

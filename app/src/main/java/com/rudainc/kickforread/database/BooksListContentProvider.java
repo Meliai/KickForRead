@@ -14,7 +14,7 @@ public class BooksListContentProvider extends ContentProvider {
     public static final int CODE = 100;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
-    private BooksDbHelper mFavoriteDbHelper;
+    private BooksDbHelper mBooksDbHelper;
 
 
     public static UriMatcher buildUriMatcher() {
@@ -31,13 +31,13 @@ public class BooksListContentProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
 
-        mFavoriteDbHelper = new BooksDbHelper(getContext());
+        mBooksDbHelper = new BooksDbHelper(getContext());
         return true;
     }
 
     @Override
     public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
-        final SQLiteDatabase db = mFavoriteDbHelper.getWritableDatabase();
+        final SQLiteDatabase db = mBooksDbHelper.getWritableDatabase();
 
         switch (sUriMatcher.match(uri)) {
 
@@ -80,7 +80,7 @@ public class BooksListContentProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
 
             case CODE: {
-                cursor = mFavoriteDbHelper.getReadableDatabase().query(
+                cursor = mBooksDbHelper.getReadableDatabase().query(
                        BooksContract.BookEntry.TABLE_NAME,
                         projection,
                         selection,
@@ -113,7 +113,7 @@ public class BooksListContentProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
 
             case CODE:
-                numRowsDeleted = mFavoriteDbHelper.getWritableDatabase().delete(
+                numRowsDeleted = mBooksDbHelper.getWritableDatabase().delete(
                        BooksContract.BookEntry.TABLE_NAME,
                         selection,
                         selectionArgs);
@@ -135,19 +135,19 @@ public class BooksListContentProvider extends ContentProvider {
 
     @Override
     public String getType(@NonNull Uri uri) {
-        throw new RuntimeException("We are not implementing getType in Sunshine.");
+        throw new RuntimeException("We are not implementing getType in KickForRead.");
     }
 
 
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
         throw new RuntimeException(
-                "We are not implementing insert in FavoritesDb. Use bulkInsert instead");
+                "We are not implementing insert in BooksDb. Use bulkInsert instead");
     }
 
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        throw new RuntimeException("We are not implementing update in FavoritesDb");
+        throw new RuntimeException("We are not implementing update in BooksDb");
     }
 
 
