@@ -41,7 +41,7 @@
 
         <provider
             android:name=".database.BooksListContentProvider"
-            android:authorities="com.rudainc.popularmovies"
+            android:authorities="com.rudainc.kickforread"
             android:exported="false"/>
 
         <receiver android:name=".widget.BookInfoWidget">
