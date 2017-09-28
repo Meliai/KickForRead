@@ -3,7 +3,7 @@ package com.rudainc.kickforread.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v4.content.ContextCompat;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -94,7 +94,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksAdapter
     @Override
     public void onBindViewHolder(BooksAdapterViewHolder booksAdapterViewHolder, int position) {
         BooksModel booksItem = mBooksData.get(position);
-        Log.i("BOOK", booksItem.getTitle());
 
         @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -103,9 +102,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksAdapter
         booksAdapterViewHolder.mCategory.setText(booksItem.getCategory());
         booksAdapterViewHolder.mStartedDay.setText(dateFormat.format((HelpUtil.setCalendarDate(Long.valueOf(booksItem.getStart_date()))).getTime()));
         booksAdapterViewHolder.mIsFinished.setText(booksItem.getIsFinished());
-
-        if (booksItem.getLabel().equals("1"))
-            booksAdapterViewHolder.mLabel.setBackgroundColor(ContextCompat.getColor(context, R.color.bright_pink));
+        booksAdapterViewHolder.mLabel.setBackgroundColor(Color.parseColor(booksItem.getLabel()));
     }
 
     @Override

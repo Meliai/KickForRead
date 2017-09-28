@@ -22,4 +22,9 @@
         <item name="cardCornerRadius">@dimen/cardview_default_radius</item>
         <item name="cardUseCompatPadding">true</item>
     </style>
+
+    <style name="ErrorAppearance" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
 </resources>
