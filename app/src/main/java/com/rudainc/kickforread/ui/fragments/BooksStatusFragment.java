@@ -8,9 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +26,7 @@ import com.rudainc.kickforread.ui.activities.BookDetailsActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BooksStatusFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, BooksAdapter.BooksAdapterOnClickHandler  {
+public class BooksStatusFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, BooksAdapter.BooksAdapterOnClickHandler {
 
     private int mPosition = RecyclerView.NO_POSITION;
 
@@ -41,6 +41,8 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
     private LinearLayoutManager ll;
     private InterstitialAd mInterstitialAd;
     private int lastFirstVisiblePosition;
+    private Cursor mCursor;
+
 
     @Nullable
     @Override
@@ -49,11 +51,13 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
         ButterKnife.bind(this, v);
         getActivity().getSupportLoaderManager().initLoader(ID_LOADER_BOOKS, null, this);
 
+        return v;
+    }
+
+    private void setUI(){
         rvBooks.setLayoutManager(new LinearLayoutManager(getActivity()));
         mBooksAdapter = new BooksAdapter(getActivity(), this);
         rvBooks.setAdapter(mBooksAdapter);
-
-        return v;
     }
 
     @Override
@@ -89,9 +93,11 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-//        mBooksAdapter.clearList();
-        if (!BaseActivity.getAllBooks(data).isEmpty())
+        mCursor = data;
+        if (!BaseActivity.getAllBooks(data).isEmpty()) {
+            setUI();
             mBooksAdapter.setBooksData(BaseActivity.getAllBooks(data));
+        }
 //        else {
 //            rvBooks.setVisibility(View.GONE);
 //            noData.setText(getResources().getString(R.string.no_favorite));
@@ -115,13 +121,18 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
          * Since this Loader's data is now invalid, we need to clear the Adapter that is
          * displaying the data.
          */
-        mBooksAdapter.swapCursor(null);
+        mCursor = null;
     }
 
     @Override
-    public void onClick(BooksModel booksModel, CardView view) {
-        Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
-        intent.putExtra(BOOK_DATA, booksModel);
-        startActivity(intent);
+    public void onClick(BooksModel booksModel, int view) {
+        if (view == CLICK_BOOK_ITEM) {
+            Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
+            intent.putExtra(BOOK_DATA, booksModel);
+            startActivity(intent);
+        } else {
+            BaseActivity.updateBook(booksModel);
+        }
+
     }
 }

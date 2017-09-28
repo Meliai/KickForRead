@@ -3,8 +3,11 @@ package com.rudainc.kickforread.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import butterknife.Optional;
+
 public class BooksModel implements Parcelable{
 
+    private String id;
     private String title;
     private String author;
     private String category;
@@ -12,7 +15,8 @@ public class BooksModel implements Parcelable{
     private String start_date;
     private String isFinished;
 
-    public BooksModel(String title, String author, String category, String label, String start_date, String isFinished) {
+    public BooksModel(String id, String title, String author, String category, String label, String start_date, String isFinished) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.category = category;
@@ -22,12 +26,29 @@ public class BooksModel implements Parcelable{
     }
 
     protected BooksModel(Parcel in) {
+        id = in.readString();
         title = in.readString();
         author = in.readString();
         category = in.readString();
         label = in.readString();
         start_date = in.readString();
         isFinished = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(title);
+        dest.writeString(author);
+        dest.writeString(category);
+        dest.writeString(label);
+        dest.writeString(start_date);
+        dest.writeString(isFinished);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<BooksModel> CREATOR = new Creator<BooksModel>() {
@@ -41,6 +62,10 @@ public class BooksModel implements Parcelable{
             return new BooksModel[size];
         }
     };
+
+    public String getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;
@@ -64,20 +89,5 @@ public class BooksModel implements Parcelable{
 
     public String getIsFinished() {
         return isFinished;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeString(author);
-        parcel.writeString(category);
-        parcel.writeString(label);
-        parcel.writeString(start_date);
-        parcel.writeString(isFinished);
     }
 }

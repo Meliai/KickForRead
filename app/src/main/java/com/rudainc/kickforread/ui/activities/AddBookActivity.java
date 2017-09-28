@@ -35,15 +35,17 @@ public class AddBookActivity extends BaseActivity {
     private long dateinMillis;
     private String date;
 
-    @OnClick(R.id.start_day)
-    void start_date(){
-        showDatePicker();
-    }
+//    @OnClick(R.id.start_day)
+//    void start_date(){
+//        dateinMillis = System.currentTimeMillis();
+////        showDatePicker();
+//    }
 
     @OnClick(R.id.btnAddBook)
     void btnAddBook(){
-       BaseActivity.addBook(new BooksModel(etTitle.getText().toString().trim(),etAuthor.getText().toString().trim(), etCategory.getText().toString().trim(),
-              "1" ,String.valueOf(dateinMillis), "false"));
+       BaseActivity.addBook(etTitle.getText().toString().trim(),etAuthor.getText().toString().trim(), etCategory.getText().toString().trim(),
+              "1" ,String.valueOf(System.currentTimeMillis()));
+       onBackPressed();
     }
 
     @Override
@@ -53,6 +55,7 @@ public class AddBookActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
+        mStartDay.setText(DateFormat.getDateInstance(DateFormat.SHORT).format(System.currentTimeMillis()));
     }
 
 

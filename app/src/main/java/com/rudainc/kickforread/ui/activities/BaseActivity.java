@@ -110,11 +110,11 @@ public class BaseActivity extends AppCompatActivity {
         cursor.close();
         return true;
     }
-
+//
     public static ArrayList<BooksModel> getAllBooks(Cursor cursor) {
         ArrayList<BooksModel> mArrayList = new ArrayList<>();
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            mArrayList.add(new BooksModel(   cursor.getString(cursor.getColumnIndex(BooksContract.BookEntry.COLUMN_TITLE)),
+            mArrayList.add(new BooksModel(String.valueOf(cursor.getLong(cursor.getColumnIndex("_id"))), cursor.getString(cursor.getColumnIndex(BooksContract.BookEntry.COLUMN_TITLE)),
                     cursor.getString(cursor.getColumnIndex(BooksContract.BookEntry.COLUMN_AUTHOR)),
                     cursor.getString(cursor.getColumnIndex(BooksContract.BookEntry.COLUMN_CATEGORY)),
                     cursor.getString(cursor.getColumnIndex(BooksContract.BookEntry.COLUMN_LABEL)),
@@ -128,22 +128,26 @@ public class BaseActivity extends AppCompatActivity {
 
 
 
-    public static void addBook(BooksModel book) {
+    public static void addBook(String title, String author, String category, String label, String start_day) {
         ContentValues cv = new ContentValues();
-        cv.put(BooksContract.BookEntry.COLUMN_TITLE,book.getTitle());
-        cv.put(BooksContract.BookEntry.COLUMN_AUTHOR,book.getAuthor());
-        cv.put(BooksContract.BookEntry.COLUMN_CATEGORY,book.getCategory());
-        cv.put(BooksContract.BookEntry.COLUMN_LABEL,book.getLabel());
-        cv.put(BooksContract.BookEntry.COLUMN_START_DAY,book.getStart_date());
-        cv.put(BooksContract.BookEntry.COLUMN_IS_FINISHED,book.getIsFinished());
+        cv.put(BooksContract.BookEntry.COLUMN_TITLE,title);
+        cv.put(BooksContract.BookEntry.COLUMN_AUTHOR,author);
+        cv.put(BooksContract.BookEntry.COLUMN_CATEGORY,category);
+        cv.put(BooksContract.BookEntry.COLUMN_LABEL,label);
+        cv.put(BooksContract.BookEntry.COLUMN_START_DAY,start_day);
+        cv.put(BooksContract.BookEntry.COLUMN_IS_FINISHED,"false");
 
         mDbBooks.insert(BooksContract.BookEntry.TABLE_NAME, null, cv);
     }
 
 
-//    public void removeDa(String id) {
-//        mDbDays.delete(DaysContract.DayEntry.TABLE_NAME, DaysContract.DayEntry.COLUMN_DATE + "=" + date, null);
-//    }
+    public static void updateBook(BooksModel booksModel) {
+        Log.i("Book",booksModel.getId());
+        ContentValues cv = new ContentValues();
+        cv.put(BooksContract.BookEntry.COLUMN_IS_FINISHED,"true"); //These Fields should be your String values of actual column names
+
+        mDbBooks.update(BooksContract.BookEntry.TABLE_NAME, cv, "_id="+booksModel.getId(), null);
+    }
 
     public static boolean checkIsBookAlreadyInDBorNot(BooksModel book) {
         Log.i("book", book.getTitle() + "");

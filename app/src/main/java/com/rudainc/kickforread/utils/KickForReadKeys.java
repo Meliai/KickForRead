@@ -6,6 +6,11 @@ public interface KickForReadKeys {
     String BOOK_NAME = "book_name";
     String BOOK_DATA = "book_data";
 
+    //Clicker
+    int CLICK_BOOK_ITEM = 1;
+    int CLICK_BOOK_FINISHED = 2;
+
+    //Loader
     int ID_LOADER_DAYS = 44;
     int ID_LOADER_BOOKS = 55;
 
