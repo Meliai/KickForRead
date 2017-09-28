@@ -10,14 +10,16 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        app:popupTheme="@style/AppTheme.AppBarOverlay"
+       >
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -32,7 +34,9 @@
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp">
 
         <EditText
             android:id="@+id/et_title"
@@ -54,13 +58,15 @@
         app:errorTextAppearance="@style/ErrorAppearance"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
-        app:layout_constraintTop_toBottomOf="@+id/titleWrapper">
+        app:layout_constraintTop_toBottomOf="@+id/titleWrapper"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp">
 
         <EditText
             android:id="@+id/et_author"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/enter_title"
+            android:hint="@string/enter_author"
             android:inputType="text"
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorGrey"
@@ -77,13 +83,15 @@
         app:errorTextAppearance="@style/ErrorAppearance"
         app:hintAnimationEnabled="true"
         app:hintEnabled="true"
-        app:layout_constraintTop_toBottomOf="@+id/authorWrapper">
+        app:layout_constraintTop_toBottomOf="@+id/authorWrapper"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp">
 
         <EditText
             android:id="@+id/et_category"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/enter_title"
+            android:hint="@string/enter_category"
             android:inputType="text"
             android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorGrey"

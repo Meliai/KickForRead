@@ -1,5 +1,6 @@
 package com.rudainc.kickforread.ui.activities;
 
+import android.app.MediaRouteButton;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,9 +12,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.ui.fragments.CalendarFragment;
 import com.rudainc.kickforread.ui.fragments.BooksStatusFragment;
@@ -35,6 +41,8 @@ public class MainActivity extends BaseActivity
 
     @BindView(R.id.my_ads_banner)
     AdView mAdView;
+    private InterstitialAd mInterstitialAd;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +59,7 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         loadAds();
+        loadInAds();
     }
 
     @Override
@@ -96,7 +105,8 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_gallery) {
             changeFragment(new BooksStatusFragment());
         } else if (id == R.id.nav_share) {
-
+            Toast.makeText(this,"SHOW ADS",  Toast.LENGTH_SHORT).show();
+            mInterstitialAd.show();
         } else if (id == R.id.nav_send) {
 
         }
@@ -117,5 +127,20 @@ public class MainActivity extends BaseActivity
     private void loadAds() {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+    }
+
+    private void loadInAds(){
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial_ad_unit_id));
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+
+            }
+
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(adRequest);
     }
 }
