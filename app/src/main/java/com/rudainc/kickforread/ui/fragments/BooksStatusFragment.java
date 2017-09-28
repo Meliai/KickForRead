@@ -8,18 +8,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.google.android.gms.ads.InterstitialAd;
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.adapters.BooksAdapter;
 import com.rudainc.kickforread.database.BooksContract;
 import com.rudainc.kickforread.models.BooksModel;
+import com.rudainc.kickforread.ui.activities.BaseActivity;
 import com.rudainc.kickforread.ui.activities.BookDetailsActivity;
 
 import butterknife.BindView;
@@ -46,8 +47,9 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_books_status, container, false);
         ButterKnife.bind(this, v);
-//        getSupportLoaderManager().initLoader(ID_LOADER, null, this);
+        getActivity().getSupportLoaderManager().initLoader(ID_LOADER_BOOKS, null, this);
 
+        rvBooks.setLayoutManager(new LinearLayoutManager(getActivity()));
         mBooksAdapter = new BooksAdapter(getActivity(), this);
         rvBooks.setAdapter(mBooksAdapter);
 
@@ -60,7 +62,7 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
 
         switch (loaderId) {
 
-            case ID_LOADER:
+            case ID_LOADER_BOOKS:
                 /* URI for all rows of weather data in our weather table */
                 Uri booksQuery = BooksContract.BookEntry.CONTENT_URI;
                 /* Sort order: Ascending by date */
@@ -87,9 +89,9 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mBooksAdapter.clearList();
-//        if (!getAllFavoritesMovies(data).isEmpty())
-//            mBooksAdapter.setMoviesData(getAllFavoritesMovies(data));
+//        mBooksAdapter.clearList();
+        if (!BaseActivity.getAllBooks(data).isEmpty())
+            mBooksAdapter.setBooksData(BaseActivity.getAllBooks(data));
 //        else {
 //            rvBooks.setVisibility(View.GONE);
 //            noData.setText(getResources().getString(R.string.no_favorite));
@@ -117,9 +119,9 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
     }
 
     @Override
-    public void onClick(BooksModel booksModel, ImageView view) {
+    public void onClick(BooksModel booksModel, CardView view) {
         Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
-//        intent.putExtra(EXTRA_DATA, movieItem);
+        intent.putExtra(BOOK_DATA, booksModel);
         startActivity(intent);
     }
 }

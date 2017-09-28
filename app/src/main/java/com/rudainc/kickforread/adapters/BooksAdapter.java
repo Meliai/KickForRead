@@ -1,17 +1,24 @@
 package com.rudainc.kickforread.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.models.BooksModel;
+import com.rudainc.kickforread.utils.HelpUtil;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksAdapterViewHolder> {
 
@@ -23,7 +30,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksAdapter
     private Cursor mCursor;
 
     public interface BooksAdapterOnClickHandler {
-        void onClick(BooksModel booksModel, ImageView view);
+        void onClick(BooksModel booksModel, CardView view);
     }
 
 
@@ -34,11 +41,19 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksAdapter
 
 
     public class BooksAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-//        public final ImageView mPoster;
+        public final TextView mTitle;
+        public final TextView mAuthor;
+        public final TextView mCategory;
+        public final TextView mStartedDay;
+        public final TextView mIsFinished;
 
         public BooksAdapterViewHolder(View view) {
             super(view);
-//            mPoster = (ImageView) view.findViewById(R.id.iv_movie_poster);
+            mTitle = (TextView) view.findViewById(R.id.title);
+            mAuthor = (TextView) view.findViewById(R.id.author);
+            mCategory = (TextView) view.findViewById(R.id.category);
+            mStartedDay = (TextView) view.findViewById(R.id.start_day);
+            mIsFinished = (TextView) view.findViewById(R.id.is_finished);
             view.setOnClickListener(this);
         }
 
@@ -46,7 +61,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksAdapter
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
             BooksModel booksModel = mBooksData.get(adapterPosition);
-            mClickHandler.onClick(booksModel, (ImageView) v);
+            mClickHandler.onClick(booksModel, (CardView) v);
         }
     }
 
@@ -64,8 +79,15 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksAdapter
     @Override
     public void onBindViewHolder(BooksAdapterViewHolder booksAdapterViewHolder, int position) {
         BooksModel booksItem = mBooksData.get(position);
-//        Picasso.with(context).load("http://image.tmdb.org/t/p/w500/" + movieItem.getPoster_path()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(moviesAdapterViewHolder.mPoster);
+        Log.i("BOOK",booksItem.getTitle());
 
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        booksAdapterViewHolder.mTitle.setText(booksItem.getTitle());
+        booksAdapterViewHolder.mAuthor.setText(booksItem.getAuthor());
+        booksAdapterViewHolder.mCategory.setText(booksItem.getCategory());
+        booksAdapterViewHolder.mStartedDay.setText(dateFormat.format((HelpUtil.setCalendarDate(Long.valueOf(booksItem.getStart_date())*1000)).getTime()));
+        booksAdapterViewHolder.mIsFinished.setText(booksItem.getIsFinished());
     }
 
     @Override
@@ -76,6 +98,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksAdapter
 
 
     public void setBooksData(ArrayList<BooksModel> booksData) {
+        Log.i("BOOKS", booksData.toString());
         this.mBooksData.clear();
         mBooksData = booksData;
         notifyDataSetChanged();

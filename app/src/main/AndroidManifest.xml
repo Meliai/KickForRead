@@ -35,14 +35,9 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <provider
-            android:name=".database.CheckedDaysContentProvider"
+            android:name=".database.KickForReadContentProvider"
             android:authorities="com.rudainc.kickforread"
             android:exported="false" />
-
-        <provider
-            android:name=".database.BooksListContentProvider"
-            android:authorities="com.rudainc.kickforread"
-            android:exported="false"/>
 
         <receiver android:name=".widget.BookInfoWidget">
             <intent-filter>

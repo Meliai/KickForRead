@@ -1,6 +1,9 @@
 package com.rudainc.kickforread.models;
 
-public class BooksModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class BooksModel implements Parcelable{
 
     private String title;
     private String author;
@@ -17,6 +20,27 @@ public class BooksModel {
         this.start_date = start_date;
         this.isFinished = isFinished;
     }
+
+    protected BooksModel(Parcel in) {
+        title = in.readString();
+        author = in.readString();
+        category = in.readString();
+        label = in.readString();
+        start_date = in.readString();
+        isFinished = in.readString();
+    }
+
+    public static final Creator<BooksModel> CREATOR = new Creator<BooksModel>() {
+        @Override
+        public BooksModel createFromParcel(Parcel in) {
+            return new BooksModel(in);
+        }
+
+        @Override
+        public BooksModel[] newArray(int size) {
+            return new BooksModel[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -40,5 +64,20 @@ public class BooksModel {
 
     public String getIsFinished() {
         return isFinished;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeString(author);
+        parcel.writeString(category);
+        parcel.writeString(label);
+        parcel.writeString(start_date);
+        parcel.writeString(isFinished);
     }
 }

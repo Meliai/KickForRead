@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.ui.fragments.CalendarFragment;
 import com.rudainc.kickforread.ui.fragments.BooksStatusFragment;
@@ -28,17 +30,11 @@ public class MainActivity extends BaseActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
-    @BindView(R.id.fab)
-    FloatingActionButton mFab;
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @OnClick(R.id.fab)
-    void addBook() {
-        Intent intent = new Intent(MainActivity.this, AddBookActivity.class);
-        startActivity(intent);
-    }
+    @BindView(R.id.my_ads_banner)
+    AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +49,8 @@ public class MainActivity extends BaseActivity
         toggle.syncState();
         changeFragment(new CalendarFragment());
         navigationView.setNavigationItemSelectedListener(this);
+
+        loadAds();
     }
 
     @Override
@@ -113,5 +111,11 @@ public class MainActivity extends BaseActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     getSupportFragmentManager().findFragmentByTag(fragment.getClass().getName()),
                     fragment.getClass().getName()).commit();
+    }
+
+
+    private void loadAds() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 }

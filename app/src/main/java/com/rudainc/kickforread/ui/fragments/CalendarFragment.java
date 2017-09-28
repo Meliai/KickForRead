@@ -1,6 +1,7 @@
 package com.rudainc.kickforread.ui.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,21 +9,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.adapters.GridAdapter;
 import com.rudainc.kickforread.database.DaysContract;
+import com.rudainc.kickforread.ui.activities.AddBookActivity;
 import com.rudainc.kickforread.ui.activities.BaseActivity;
 import com.rudainc.kickforread.utils.KickForReadKeys;
 
@@ -35,6 +34,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class CalendarFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, GridAdapter.OnClickHandler, KickForReadKeys {
@@ -48,8 +48,14 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
     TextView currentDate;
     @BindView(R.id.calendar_grid)
     GridView calendarGridView;
-    @BindView(R.id.my_ads_banner)
-    AdView mAdView;
+
+
+    @OnClick(R.id.fab)
+    void addBook() {
+        Intent intent = new Intent(getActivity(), AddBookActivity.class);
+        startActivity(intent);
+    }
+
 
     private static final int MAX_CALENDAR_COLUMN = 42;
     private SimpleDateFormat formatter = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
@@ -64,12 +70,10 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_calendar, container, false);
         ButterKnife.bind(this, v);
-
+        getActivity().getSupportLoaderManager().initLoader(ID_LOADER_DAYS, null, this);
         setUpCalendarAdapter();
         setPreviousButtonClickEvent();
         setNextButtonClickEvent();
-
-        loadAds();
 
         return v;
     }
@@ -96,6 +100,7 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
 
 
     private void setUpCalendarAdapter() {
+
         List<Date> dayValueInCells = new ArrayList<Date>();
         Calendar mCal = (Calendar) cal.clone();
         mCal.set(Calendar.DAY_OF_MONTH, 1);
@@ -130,7 +135,7 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
 
         switch (loaderId) {
 
-            case ID_LOADER:
+            case ID_LOADER_DAYS:
 
                 Uri daysQueryUri = DaysContract.DayEntry.CONTENT_URI;
 
@@ -164,8 +169,4 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
 
 
 
-    private void loadAds() {
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-    }
 }

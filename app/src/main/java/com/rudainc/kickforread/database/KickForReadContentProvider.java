@@ -7,22 +7,25 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
-public class CheckedDaysContentProvider extends ContentProvider {
+public class KickForReadContentProvider extends ContentProvider {
 
 
-    public static final int CODE = 100;
+    public static final int CODE_DAYS = 100;
+    public static final int CODE_BOOKS = 200;
 
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private CheckedDaysDbHelper mCheckedDaysDbHelper;
 
-
+    private BooksDbHelper mBooksDbHelper;
     public static UriMatcher buildUriMatcher() {
 
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = DaysContract.DayEntry.CONTENT_AUTHORITY;
 
-        matcher.addURI(authority, DaysContract.DayEntry.PATH_DAYS, CODE);
+        matcher.addURI(authority, DaysContract.DayEntry.PATH_DAYS, CODE_DAYS);
+        matcher.addURI(authority, BooksContract.BookEntry.PATH_BOOKS, CODE_BOOKS);
 
         return matcher;
     }
@@ -31,30 +34,55 @@ public class CheckedDaysContentProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         mCheckedDaysDbHelper = new CheckedDaysDbHelper(getContext());
+        mBooksDbHelper = new BooksDbHelper(getContext());
         return true;
     }
 
     @Override
     public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
-        final SQLiteDatabase db = mCheckedDaysDbHelper.getWritableDatabase();
-
+        final SQLiteDatabase dbDays = mCheckedDaysDbHelper.getWritableDatabase();
+        final SQLiteDatabase dbBooks = mBooksDbHelper.getWritableDatabase();
+        int rowsInserted = 0;
+        Log.i("MyUri", uri+"");
         switch (sUriMatcher.match(uri)) {
 
-            case CODE:
-                db.beginTransaction();
-                int rowsInserted = 0;
+            case CODE_DAYS:
+                dbDays.beginTransaction();
+
                 try {
                     for (ContentValues value : values) {
 
 
-                        long _id = db.insert(DaysContract.DayEntry.TABLE_NAME, null, value);
+                        long _id = dbDays.insert(DaysContract.DayEntry.TABLE_NAME, null, value);
                         if (_id != -1) {
                             rowsInserted++;
                         }
                     }
-                    db.setTransactionSuccessful();
+                    dbDays.setTransactionSuccessful();
                 } finally {
-                    db.endTransaction();
+                    dbDays.endTransaction();
+                }
+
+                if (rowsInserted > 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+                return rowsInserted;
+
+            case CODE_BOOKS:
+                dbBooks.beginTransaction();
+
+                try {
+                    for (ContentValues value : values) {
+
+
+                        long _id = dbBooks.insert(BooksContract.BookEntry.TABLE_NAME, null, value);
+                        if (_id != -1) {
+                            rowsInserted++;
+                        }
+                    }
+                    dbBooks.setTransactionSuccessful();
+                } finally {
+                    dbBooks.endTransaction();
                 }
 
                 if (rowsInserted > 0) {
@@ -74,13 +102,26 @@ public class CheckedDaysContentProvider extends ContentProvider {
                         String[] selectionArgs, String sortOrder) {
 
         Cursor cursor;
-
+        Log.i("MyUri", uri+"");
 
         switch (sUriMatcher.match(uri)) {
 
-            case CODE: {
+            case CODE_DAYS: {
                 cursor = mCheckedDaysDbHelper.getReadableDatabase().query(
                        DaysContract.DayEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+
+                break;
+            }
+
+            case CODE_BOOKS: {
+                cursor = mBooksDbHelper.getReadableDatabase().query(
+                        BooksContract.BookEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -111,9 +152,17 @@ public class CheckedDaysContentProvider extends ContentProvider {
 
         switch (sUriMatcher.match(uri)) {
 
-            case CODE:
+            case CODE_DAYS:
                 numRowsDeleted = mCheckedDaysDbHelper.getWritableDatabase().delete(
                        DaysContract.DayEntry.TABLE_NAME,
+                        selection,
+                        selectionArgs);
+
+                break;
+
+            case CODE_BOOKS:
+                numRowsDeleted = mBooksDbHelper.getWritableDatabase().delete(
+                        BooksContract.BookEntry.TABLE_NAME,
                         selection,
                         selectionArgs);
 

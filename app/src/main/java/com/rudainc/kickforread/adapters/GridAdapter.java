@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.custom_views.CircleView;
+import com.rudainc.kickforread.utils.HelpUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -64,13 +65,13 @@ public class GridAdapter extends ArrayAdapter {
         final CircleView mIndicator = view.findViewById(R.id.read_indicator);
         cellDay.setText(String.valueOf(dayValue));
 
-        Calendar eventCalendar = Calendar.getInstance();
+//        Calendar eventCalendar = Calendar.getInstance();
 
         if (!allEvents.isEmpty())
             for (int i = 0; i < allEvents.size(); i++) {
-                eventCalendar.setTime(new Date(allEvents.get(i)));
-                if (dayValue == eventCalendar.get(Calendar.DAY_OF_MONTH) && displayMonth == (eventCalendar.get(Calendar.MONTH) + 1)
-                        && displayYear == eventCalendar.get(Calendar.YEAR)) {
+//                eventCalendar.setTime(HelpUtil.covertLongToDate(allEvents.get(i)));
+                if (dayValue == (HelpUtil.setCalendarDate(allEvents.get(i))).get(Calendar.DAY_OF_MONTH) && displayMonth == ((HelpUtil.setCalendarDate(allEvents.get(i))).get(Calendar.MONTH) + 1)
+                        && displayYear == (HelpUtil.setCalendarDate(allEvents.get(i))).get(Calendar.YEAR)) {
                     mIndicator.setVisibility(View.VISIBLE);
                 }
             }

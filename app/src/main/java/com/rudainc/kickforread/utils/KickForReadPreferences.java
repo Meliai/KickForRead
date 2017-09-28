@@ -8,19 +8,19 @@ public class KickForReadPreferences implements KickForReadKeys{
 
     public static void setBookData(Context context, String recipe_name, String ingredients){
         PreferenceManager.getDefaultSharedPreferences(context)
-                .edit().putString(RECIPE_NAME, recipe_name).apply();
+                .edit().putString(BOOK_NAME, recipe_name).apply();
         PreferenceManager.getDefaultSharedPreferences(context)
-                .edit().putString(RECIPE_INGREDIENTS, ingredients).apply();
+                .edit().putString(BOOK_DATA, ingredients).apply();
     }
 
     public static String getBookTitle(Context context){
         return PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(RECIPE_NAME, "");
+                .getString(BOOK_NAME, "");
     }
 
     public static String getBookInfo(Context context){
         return PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(RECIPE_INGREDIENTS, "");
+                .getString(BOOK_DATA, "");
     }
 
     public static final String KEY_WATER_COUNT = "water-count";
