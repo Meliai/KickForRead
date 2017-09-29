@@ -125,6 +125,7 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
     public void onValidationSucceeded() {
         BaseActivity.addBook(etTitle.getText().toString().trim(), etAuthor.getText().toString().trim(), etCategory.getText().toString().trim(),
                 label, String.valueOf(System.currentTimeMillis()));
+        showSnackBar(getString(R.string.book_added),true);
         KickForReadPreferences.setBookAdded(this,true);
         KickForReadPreferences.setBookData(this,etTitle.getText().toString().trim(),etAuthor.getText().toString().trim(), etCategory.getText().toString().trim(),String.valueOf(System.currentTimeMillis()));
         WidgetService.startActionUpdateRecipeWidget(this);

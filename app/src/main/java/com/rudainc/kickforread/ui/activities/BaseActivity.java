@@ -42,11 +42,19 @@ public class BaseActivity extends AppCompatActivity {
         ReminderUtilities.scheduleChargingReminder(this);
     }
 
+    //For future
     public boolean isOnline(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         //should check null because in airplane mode it will be null
         return (netInfo != null && netInfo.isConnected());
+    }
+
+    public void showSnackBar(String message, boolean isError) {
+        Snackbar snackbar = initSnackBar(message,isError);
+        if (snackbar != null)
+            snackbar.show();
+
     }
 
     private Snackbar initSnackBar(String message, boolean isError) {
@@ -66,12 +74,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    public void showSnackBar(String message, boolean isError) {
-        Snackbar snackbar = initSnackBar(message,isError);
-        if (snackbar != null)
-            snackbar.show();
 
-    }
 
 
     public static ArrayList<Long> getAllCheckedDays(Cursor cursor) {

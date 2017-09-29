@@ -8,7 +8,7 @@
 
     <string name="title_calendar">My Calendar</string>
     <string name="title_book_status">Books Status</string>
-    <string name="send">Contacs</string>
+    <string name="title_contacts">Contacs</string>
     <string name="ads">Ads</string>
 
     <string name="finish_book">I finished it!</string>
@@ -25,6 +25,15 @@
 
     <string name="book_is_finished" formatted="false">Book finished: %s</string>
     <string name="widget_info" formatted="false">Author: %s\nCategory: %s\nYou start read this book on %s</string>
+
+    <string name="list_empty">List is empty</string>
+    <string name="book_added">Book added to your list</string>
+    <string name="did_it">You did it! Congratulation!</string>
+    <string name="email">y23helen@gmail.com</string>
+    <string name="contacts_info"> Hello everyone!\nI present you an awesome tool which will kick you everyday for reading! You can add the book and start checking each day when you read.
+        Be careful, you can check only current day, so don\'t miss checks. So that you can not fool your calendar.
+    In future will be implemented cute read statistic =)\n
+    If you have some suggestions what will make this app better fill free to write on email.</string>
 
     <!--Add Book Screen-->
     <string name="title_activity_add_book">AddBookActivity</string>
@@ -54,6 +63,7 @@
     <string name="cd_app_logo">Application Logo</string>
     <string name="cd_next_month">Go to next month</string>
     <string name="cd_previous_month">Go to previous month</string>
+    <string name="cd_contact">Cute ghost image</string>
 
 
 </resources>

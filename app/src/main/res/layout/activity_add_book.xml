@@ -122,8 +122,8 @@
 
 
         <ImageButton
-            android:layout_width="@dimen/large_brush"
-            android:layout_height="@dimen/large_brush"
+            android:layout_width="@dimen/label_size"
+            android:layout_height="@dimen/label_size"
             android:layout_margin="2dp"
             android:background="@color/red"
             android:contentDescription="@string/paint"
@@ -132,8 +132,8 @@
             android:tag="@color/red" />
 
         <ImageButton
-            android:layout_width="@dimen/large_brush"
-            android:layout_height="@dimen/large_brush"
+            android:layout_width="@dimen/label_size"
+            android:layout_height="@dimen/label_size"
             android:layout_margin="2dp"
             android:background="@color/orange"
             android:contentDescription="@string/paint"
@@ -142,8 +142,8 @@
             android:tag="@color/orange" />
 
         <ImageButton
-            android:layout_width="@dimen/large_brush"
-            android:layout_height="@dimen/large_brush"
+            android:layout_width="@dimen/label_size"
+            android:layout_height="@dimen/label_size"
             android:layout_margin="2dp"
             android:background="@color/yellow"
             android:contentDescription="@string/paint"
@@ -152,8 +152,8 @@
             android:tag="@color/yellow" />
 
         <ImageButton
-            android:layout_width="@dimen/large_brush"
-            android:layout_height="@dimen/large_brush"
+            android:layout_width="@dimen/label_size"
+            android:layout_height="@dimen/label_size"
             android:layout_margin="2dp"
             android:background="@color/green"
             android:contentDescription="@string/paint"
@@ -162,8 +162,8 @@
             android:tag="@color/green" />
 
         <ImageButton
-            android:layout_width="@dimen/large_brush"
-            android:layout_height="@dimen/large_brush"
+            android:layout_width="@dimen/label_size"
+            android:layout_height="@dimen/label_size"
             android:layout_margin="2dp"
             android:background="@color/cyan"
             android:contentDescription="@string/paint"
@@ -172,8 +172,8 @@
             android:tag="@color/cyan" />
 
         <ImageButton
-            android:layout_width="@dimen/large_brush"
-            android:layout_height="@dimen/large_brush"
+            android:layout_width="@dimen/label_size"
+            android:layout_height="@dimen/label_size"
             android:layout_margin="2dp"
             android:background="@color/blue"
             android:contentDescription="@string/paint"
@@ -182,8 +182,8 @@
             android:tag="@color/blue" />
 
         <ImageButton
-            android:layout_width="@dimen/large_brush"
-            android:layout_height="@dimen/large_brush"
+            android:layout_width="@dimen/label_size"
+            android:layout_height="@dimen/label_size"
             android:layout_margin="2dp"
             android:background="@color/violet"
             android:contentDescription="@string/paint"
@@ -192,8 +192,8 @@
             android:tag="@color/violet" />
 
         <ImageButton
-            android:layout_width="@dimen/large_brush"
-            android:layout_height="@dimen/large_brush"
+            android:layout_width="@dimen/label_size"
+            android:layout_height="@dimen/label_size"
             android:layout_margin="2dp"
             android:background="@color/bright_pink"
             android:contentDescription="@string/paint"

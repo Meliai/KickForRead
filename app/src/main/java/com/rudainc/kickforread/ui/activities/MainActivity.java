@@ -19,6 +19,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.ui.fragments.CalendarFragment;
 import com.rudainc.kickforread.ui.fragments.BooksStatusFragment;
+import com.rudainc.kickforread.ui.fragments.ContactFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,7 +108,7 @@ public class MainActivity extends BaseActivity
             Toast.makeText(this,"SHOW ADS",  Toast.LENGTH_SHORT).show();
             mInterstitialAd.show();
         } else if (id == R.id.nav_send) {
-
+            changeFragment(new ContactFragment());
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -110,6 +110,7 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
             mBooksAdapter.setBooksData(BaseActivity.getAllBooks(data));
         }
         else {
+            ((BaseActivity)getActivity()).showSnackBar(getString(R.string.list_empty),true);
             rvBooks.setVisibility(View.GONE);
             noData.setVisibility(View.VISIBLE);
         }
@@ -135,15 +136,19 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
 
     @Override
     public void onClick(BooksModel booksModel, int view) {
-        if (view == CLICK_BOOK_ITEM) {
-            Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
-            intent.putExtra(BOOK_DATA, booksModel);
-            startActivity(intent);
-        } else {
+        if (view == CLICK_BOOK_FINISHED) {
             BaseActivity.updateBook(booksModel);
             getContext().getContentResolver().notifyChange(BooksContract.BookEntry.CONTENT_URI,null);
             KickForReadPreferences.setBookAdded(getActivity(), false);
+            ((BaseActivity)getActivity()).showSnackBar(getString(R.string.did_it),true);
         }
+
+        //For future details and edit book
+//        else {
+//            Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
+//            intent.putExtra(BOOK_DATA, booksModel);
+//            startActivity(intent);
+//        }
 
     }
 }
