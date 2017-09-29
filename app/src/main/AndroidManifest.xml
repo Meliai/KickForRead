@@ -41,6 +41,7 @@
             android:authorities="com.rudainc.kickforread"
             android:exported="false" />
 
+        <service android:name=".widget.WidgetService" />
         <receiver android:name=".widget.BookInfoWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

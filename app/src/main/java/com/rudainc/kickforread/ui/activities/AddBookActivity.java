@@ -127,8 +127,9 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
                 label, String.valueOf(System.currentTimeMillis()));
         KickForReadPreferences.setBookAdded(this,true);
         KickForReadPreferences.setBookData(this,etTitle.getText().toString().trim(),etAuthor.getText().toString().trim(), etCategory.getText().toString().trim(),String.valueOf(System.currentTimeMillis()));
-        onBackPressed();
         WidgetService.startActionUpdateRecipeWidget(this);
+        onBackPressed();
+
     }
 
     @Override

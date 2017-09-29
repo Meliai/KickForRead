@@ -17,9 +17,6 @@ import com.rudainc.kickforread.utils.KickForReadPreferences;
  */
 public class BookInfoWidget extends AppWidgetProvider {
 
-    //update it
-//     KickForReadPreferences.setRecipeData(this, bakingSample.getName(),ingredients_text);
-//        WidgetService.startActionUpdateRecipeWidget(this);
 
     public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds){
         for (int appWidgetId : appWidgetIds) {
@@ -28,12 +25,12 @@ public class BookInfoWidget extends AppWidgetProvider {
     }
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-        RemoteViews rv = getIngredientsListRemoteView(context);
+        RemoteViews rv = getBookRemoteView(context);
         appWidgetManager.updateAppWidget(appWidgetId, rv);
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.tv_book_title);
     }
 
-    private static RemoteViews getIngredientsListRemoteView(Context context) {
+    private static RemoteViews getBookRemoteView(Context context) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.book_info_widget);
 
         Log.i("WIDGET", KickForReadPreferences.getBookTitle(context)+" "+ KickForReadPreferences.getBookInfo(context));
@@ -41,8 +38,10 @@ public class BookInfoWidget extends AppWidgetProvider {
             views.setTextViewText(R.id.tv_book_title, KickForReadPreferences.getBookTitle(context));
             views.setTextViewText(R.id.tv_book_info, KickForReadPreferences.getBookInfo(context));
         }
+
         Intent appIntent = new Intent(context, MainActivity.class);
         PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.rl_widget, appPendingIntent);
         views.setPendingIntentTemplate(R.id.tv_book_title, appPendingIntent);
 
         return views;
