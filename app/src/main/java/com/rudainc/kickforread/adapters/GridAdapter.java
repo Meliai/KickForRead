@@ -28,14 +28,15 @@ public class GridAdapter extends ArrayAdapter {
     private Calendar currentDate;
     private ArrayList<Long> allEvents = new ArrayList<>();
     private OnClickHandler mClickHandler;
+    private View mIndicator;
 
-    public GridAdapter(Context context, List<Date> monthlyDates, Calendar currentDate, ArrayList<Long> allEvents, OnClickHandler onClickHandler) {
+    public GridAdapter(Context context, List<Date> monthlyDates, Calendar currentDate, ArrayList<Long> allEvents) {
         super(context, R.layout.single_day_layout);
         this.context = context;
         this.monthlyDates = monthlyDates;
         this.currentDate = currentDate;
         this.allEvents = allEvents;
-        this.mClickHandler = onClickHandler;
+//        this.mClickHandler = onClickHandler;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -62,7 +63,7 @@ public class GridAdapter extends ArrayAdapter {
         }
         //Add day to calendar
         TextView cellDay =view.findViewById(R.id.calendar_date_id);
-        final CircleView mIndicator = view.findViewById(R.id.read_indicator);
+        mIndicator = view.findViewById(R.id.read_indicator);
         cellDay.setText(String.valueOf(dayValue));
 
 //        Calendar eventCalendar = Calendar.getInstance();
@@ -76,15 +77,15 @@ public class GridAdapter extends ArrayAdapter {
                 }
             }
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mIndicator.setVisibility(View.VISIBLE);
-
-                Date date = monthlyDates.get(position);
-                mClickHandler.onClick(date);
-            }
-        });
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mIndicator.setVisibility(View.VISIBLE);
+//
+//                Date date = monthlyDates.get(position);
+//                mClickHandler.onClick(date);
+//            }
+//        });
         return view;
     }
 
@@ -107,4 +108,6 @@ public class GridAdapter extends ArrayAdapter {
     public interface OnClickHandler {
         void onClick(Date date);
     }
+
+
 }

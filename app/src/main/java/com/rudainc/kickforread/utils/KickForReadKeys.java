@@ -4,6 +4,10 @@ public interface KickForReadKeys {
 
 
     String BOOK_NAME = "book_name";
+    String BOOK_AUTHOR = "book_author";
+    String BOOK_CATEGORY = "book_category";
+    String BOOK_START = "book_start";
+    String IS_BOOK_ADDED = "isBook";
     String BOOK_DATA = "book_data";
 
     //Clicker

@@ -62,6 +62,10 @@ public class MainActivity extends BaseActivity
         loadInAds();
     }
 
+    public void setToolbarText(String title){
+        toolbar.setTitle(title);
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

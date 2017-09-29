@@ -150,7 +150,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@mipmap/ic_launcher" />
+        />
 
 
 </RelativeLayout>

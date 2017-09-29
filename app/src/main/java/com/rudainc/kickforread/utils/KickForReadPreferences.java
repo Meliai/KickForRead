@@ -6,11 +6,20 @@ import android.preference.PreferenceManager;
 
 public class KickForReadPreferences implements KickForReadKeys{
 
-    public static void setBookData(Context context, String recipe_name, String ingredients){
+    public static void setBookData(Context context, String book_name, String book_author, String book_category, String book_start){
         PreferenceManager.getDefaultSharedPreferences(context)
-                .edit().putString(BOOK_NAME, recipe_name).apply();
+                .edit().putString(BOOK_NAME, book_name).apply();
         PreferenceManager.getDefaultSharedPreferences(context)
-                .edit().putString(BOOK_DATA, ingredients).apply();
+                .edit().putString(BOOK_AUTHOR, book_author).apply();
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(BOOK_CATEGORY, book_category).apply();
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(BOOK_START, book_start).apply();
+    }
+
+    public static void setBookAdded(Context context, boolean isBook){
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putBoolean(IS_BOOK_ADDED, isBook).apply();
     }
 
     public static String getBookTitle(Context context){
@@ -20,7 +29,12 @@ public class KickForReadPreferences implements KickForReadKeys{
 
     public static String getBookInfo(Context context){
         return PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(BOOK_DATA, "");
+                .getString(BOOK_AUTHOR, "");
+    }
+
+    public static boolean isBookAdded(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(IS_BOOK_ADDED, false);
     }
 
     public static final String KEY_WATER_COUNT = "water-count";

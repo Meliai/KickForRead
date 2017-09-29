@@ -6,9 +6,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +20,15 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.adapters.GridAdapter;
+import com.rudainc.kickforread.database.BooksContract;
 import com.rudainc.kickforread.database.DaysContract;
 import com.rudainc.kickforread.ui.activities.AddBookActivity;
 import com.rudainc.kickforread.ui.activities.BaseActivity;
+import com.rudainc.kickforread.ui.activities.MainActivity;
 import com.rudainc.kickforread.utils.KickForReadKeys;
+import com.rudainc.kickforread.utils.KickForReadPreferences;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,7 +42,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class CalendarFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, GridAdapter.OnClickHandler, KickForReadKeys {
+public class CalendarFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, KickForReadKeys {
     private static final String TAG = CalendarFragment.class.getSimpleName();
 
     @BindView(R.id.previous_month)
@@ -48,12 +53,23 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
     TextView currentDate;
     @BindView(R.id.calendar_grid)
     GridView calendarGridView;
+    @BindView(R.id.fab)
+    FloatingActionButton mFab;
 
 
     @OnClick(R.id.fab)
-    void addBook() {
-        Intent intent = new Intent(getActivity(), AddBookActivity.class);
-        startActivity(intent);
+    void fab() {
+        if (!KickForReadPreferences.isBookAdded(getActivity())) {
+            Intent intent = new Intent(getActivity(), AddBookActivity.class);
+            startActivity(intent);
+        } else {
+            Calendar calendar = Calendar.getInstance();
+            if (!BaseActivity.checkIsDataAlreadyInDBorNot(calendar.getTimeInMillis())) {
+                BaseActivity.addDate(calendar.getTimeInMillis());
+            }
+            getContext().getContentResolver().notifyChange(DaysContract.DayEntry.CONTENT_URI,null);
+
+        }
     }
 
 
@@ -74,8 +90,19 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
         setUpCalendarAdapter();
         setPreviousButtonClickEvent();
         setNextButtonClickEvent();
+        ( (MainActivity)getActivity()).setToolbarText(getString(R.string.title_calendar));
 
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i("IS_BOOK",KickForReadPreferences.isBookAdded(getActivity())+"");
+        if (KickForReadPreferences.isBookAdded(getActivity()))
+            mFab.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.ic_done_white_48dp));
+        else
+            mFab.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.ic_menu_camera));
     }
 
     private void setPreviousButtonClickEvent() {
@@ -113,20 +140,21 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
         String sDate = formatter.format(cal.getTime());
         currentDate.setText(sDate);
         if (getActivity() != null) {
-            mAdapter = new GridAdapter(getActivity(), dayValueInCells, cal, mEvents, this);
+            mAdapter = new GridAdapter(getActivity(), dayValueInCells, cal, mEvents);
             calendarGridView.setAdapter(mAdapter);
         }
     }
 
-    @Override
-    public void onClick(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        if (!BaseActivity.checkIsDataAlreadyInDBorNot(calendar.getTimeInMillis())) {
-            BaseActivity.addDate(calendar.getTimeInMillis());
-//            mCursor.setNotificationUri(getContext().getContentResolver(), DaysContract.DayEntry.CONTENT_URI);
-        }
-    }
+//    @Override
+//    public void onClick(Date date) {
+//        Toast.makeText(getActivity(), date.toString(), Toast.LENGTH_SHORT);
+////        Calendar calendar = Calendar.getInstance();
+////        calendar.setTime(date);
+////        if (!BaseActivity.checkIsDataAlreadyInDBorNot(calendar.getTimeInMillis())) {
+////            BaseActivity.addDate(calendar.getTimeInMillis());
+//////            mCursor.setNotificationUri(getContext().getContentResolver(), DaysContract.DayEntry.CONTENT_URI);
+////        }
+//    }
 
 
     @Override
@@ -166,7 +194,6 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
     public void onLoaderReset(Loader<Cursor> loader) {
         mCursor = null;
     }
-
 
 
 }

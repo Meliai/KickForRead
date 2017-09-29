@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,9 +20,12 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.adapters.BooksAdapter;
 import com.rudainc.kickforread.database.BooksContract;
+import com.rudainc.kickforread.database.DaysContract;
 import com.rudainc.kickforread.models.BooksModel;
 import com.rudainc.kickforread.ui.activities.BaseActivity;
 import com.rudainc.kickforread.ui.activities.BookDetailsActivity;
+import com.rudainc.kickforread.ui.activities.MainActivity;
+import com.rudainc.kickforread.utils.KickForReadPreferences;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,8 +54,14 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
         View v = inflater.inflate(R.layout.fragment_books_status, container, false);
         ButterKnife.bind(this, v);
         getActivity().getSupportLoaderManager().initLoader(ID_LOADER_BOOKS, null, this);
-
+        ( (MainActivity)getActivity()).setToolbarText(getString(R.string.title_book_status));
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getContext().getContentResolver().notifyChange(BooksContract.BookEntry.CONTENT_URI,null);
     }
 
     private void setUI(){
@@ -132,6 +142,8 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
             startActivity(intent);
         } else {
             BaseActivity.updateBook(booksModel);
+            getContext().getContentResolver().notifyChange(BooksContract.BookEntry.CONTENT_URI,null);
+            KickForReadPreferences.setBookAdded(getActivity(), false);
         }
 
     }

@@ -21,6 +21,8 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.rudainc.kickforread.R;
+import com.rudainc.kickforread.utils.KickForReadKeys;
+import com.rudainc.kickforread.utils.KickForReadPreferences;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -122,6 +124,8 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
     public void onValidationSucceeded() {
         BaseActivity.addBook(etTitle.getText().toString().trim(), etAuthor.getText().toString().trim(), etCategory.getText().toString().trim(),
                 label, String.valueOf(System.currentTimeMillis()));
+        KickForReadPreferences.setBookAdded(this,true);
+        KickForReadPreferences.setBookData(this,etTitle.getText().toString().trim(),etAuthor.getText().toString().trim(), etCategory.getText().toString().trim(),String.valueOf(System.currentTimeMillis()));
         onBackPressed();
     }
 

@@ -7,8 +7,8 @@
     <string name="action_settings">Settings</string>
 
     <!--Calendar Fragment-->
-    <string name="calendar">Calendar</string>
-    <string name="progress">Books Status</string>
+    <string name="title_calendar">My Calendar</string>
+    <string name="title_book_status">Books Status</string>
 
     <string name="sun">SUN</string>
     <string name="mon">MON</string>
