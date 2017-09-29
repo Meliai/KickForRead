@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KickForRead.iml" filepath="$PROJECT_DIR$/KickForRead.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/KickForRead.iml" filepath="$PROJECT_DIR$/.idea/KickForRead.iml" />
+      <module fileurl="file://D:\Alenka\coding\KickForRead\KickForRead.iml" filepath="D:\Alenka\coding\KickForRead\KickForRead.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
