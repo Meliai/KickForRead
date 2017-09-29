@@ -50,7 +50,8 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginEnd="@dimen/fab_margin"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/cd_fab"/>
         </LinearLayout>
 
         <LinearLayout

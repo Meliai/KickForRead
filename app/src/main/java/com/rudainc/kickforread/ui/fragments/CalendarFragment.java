@@ -11,8 +11,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import android.widget.TextView;
 
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.adapters.GridAdapter;
-import com.rudainc.kickforread.database.BooksContract;
 import com.rudainc.kickforread.database.DaysContract;
 import com.rudainc.kickforread.ui.activities.AddBookActivity;
 import com.rudainc.kickforread.ui.activities.BaseActivity;

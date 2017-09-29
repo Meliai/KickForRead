@@ -3,8 +3,6 @@ package com.rudainc.kickforread.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import butterknife.Optional;
-
 public class BooksModel implements Parcelable{
 
     private String id;

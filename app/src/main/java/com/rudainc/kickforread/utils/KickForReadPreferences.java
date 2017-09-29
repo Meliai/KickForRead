@@ -2,7 +2,6 @@ package com.rudainc.kickforread.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.rudainc.kickforread.R;

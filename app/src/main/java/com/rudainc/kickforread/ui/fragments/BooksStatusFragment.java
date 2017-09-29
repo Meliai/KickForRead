@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.InterstitialAd;
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.adapters.BooksAdapter;
 import com.rudainc.kickforread.database.BooksContract;

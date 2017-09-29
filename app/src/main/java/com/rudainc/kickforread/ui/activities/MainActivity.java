@@ -110,7 +110,6 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_books) {
             changeFragment(new BooksStatusFragment());
         } else if (id == R.id.nav_ads) {
-            Toast.makeText(this,"SHOW ADS",  Toast.LENGTH_SHORT).show();
             mInterstitialAd.show();
         } else if (id == R.id.nav_send) {
             changeFragment(new ContactFragment());

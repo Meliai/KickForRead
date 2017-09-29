@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.rudainc.kickforread.R;
+
 public class KickForReadContentProvider extends ContentProvider {
 
 
@@ -109,7 +111,6 @@ public class KickForReadContentProvider extends ContentProvider {
                         String[] selectionArgs, String sortOrder) {
 
         Cursor cursor;
-        Log.i("MyUri", uri + "");
 
         switch (sUriMatcher.match(uri)) {
 
@@ -140,7 +141,7 @@ public class KickForReadContentProvider extends ContentProvider {
             }
 
             default:
-                throw new UnsupportedOperationException("Unknown uri: " + uri);
+                throw new UnsupportedOperationException(getContext().getString(R.string.unknown_uri) + uri);
         }
 
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
@@ -150,19 +151,18 @@ public class KickForReadContentProvider extends ContentProvider {
 
     @Override
     public String getType(@NonNull Uri uri) {
-        throw new RuntimeException("We are not implementing getType in KickForRead.");
+        throw new RuntimeException(getContext().getString(R.string.provider_gettype));
     }
 
 
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
-        throw new RuntimeException(
-                "We are not implementing insert in CheckedDaysDb. Use bulkInsert instead");
+        throw new RuntimeException(getContext().getString(R.string.provider_insert));
     }
 
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        throw new RuntimeException("We are not implementing update in CheckedDaysDb");
+        throw new RuntimeException(getContext().getString(R.string.provider_update));
     }
 
 

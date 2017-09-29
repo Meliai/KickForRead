@@ -64,6 +64,12 @@
     <string name="cd_next_month">Go to next month</string>
     <string name="cd_previous_month">Go to previous month</string>
     <string name="cd_contact">Cute ghost image</string>
+    <string name="cd_fab">Floating button to check day or add book</string>
+    <string name="communicate">Communicate</string>
+    <string name="provider_gettype">We are not implementing getType in KickForRead</string>
+    <string name="provider_insert">We are not implementing insert in CheckedDaysDb. Use bulkInsert instead</string>
+    <string name="provider_update">We are not implementing update in Db</string>
+    <string name="unknown_uri">Unknown uri:</string>
 
 
 </resources>

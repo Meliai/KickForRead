@@ -2,12 +2,9 @@ package com.rudainc.kickforread.ui.activities;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewParent;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
