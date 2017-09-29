@@ -10,7 +10,7 @@
         android:id="@+id/activity_custom_calendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/fab"
+        android:layout_above="@+id/fab"
         android:orientation="vertical">
 
         <LinearLayout
