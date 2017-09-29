@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.InterstitialAd;
 import com.rudainc.kickforread.R;
@@ -37,8 +38,8 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
     @BindView(R.id.rvBooks)
     RecyclerView rvBooks;
 
-//    @BindView(R.id.tv_no_data)
-//    TextView noData;
+    @BindView(R.id.tv_no_data)
+    TextView noData;
 
     private BooksAdapter mBooksAdapter;
 
@@ -80,7 +81,7 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
                 /* URI for all rows of weather data in our weather table */
                 Uri booksQuery = BooksContract.BookEntry.CONTENT_URI;
                 /* Sort order: Ascending by date */
-//                String sortOrder = BooksContract.BookEntry.C + " ASC";
+                String sortOrder = "_id" + " DESC";
                 /*
                  * A SELECTION in SQL declares which rows you'd like to return. In our case, we
                  * want all weather data from today onwards that is stored in our weather table.
@@ -93,7 +94,7 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
                         null,
                         null,
                         null,
-                        null);
+                        sortOrder);
 
             default:
                 throw new RuntimeException("Loader Not Implemented: " + loaderId);
@@ -108,12 +109,10 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
             setUI();
             mBooksAdapter.setBooksData(BaseActivity.getAllBooks(data));
         }
-//        else {
-//            rvBooks.setVisibility(View.GONE);
-//            noData.setText(getResources().getString(R.string.no_favorite));
-//            noData.setVisibility(View.VISIBLE);
-////            noData.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
-//        }
+        else {
+            rvBooks.setVisibility(View.GONE);
+            noData.setVisibility(View.VISIBLE);
+        }
         if (mPosition == RecyclerView.NO_POSITION) mPosition = 0;
         rvBooks.smoothScrollToPosition(mPosition);
 

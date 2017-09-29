@@ -39,7 +39,7 @@ public class BookInfoWidget extends AppWidgetProvider {
         Log.i("WIDGET", KickForReadPreferences.getBookTitle(context)+" "+ KickForReadPreferences.getBookInfo(context));
         if (!KickForReadPreferences.getBookInfo(context).isEmpty()) {
             views.setTextViewText(R.id.tv_book_title, KickForReadPreferences.getBookTitle(context));
-            views.setTextViewText(R.id.tv_book_title, KickForReadPreferences.getBookInfo(context));
+            views.setTextViewText(R.id.tv_book_info, KickForReadPreferences.getBookInfo(context));
         }
         Intent appIntent = new Intent(context, MainActivity.class);
         PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);

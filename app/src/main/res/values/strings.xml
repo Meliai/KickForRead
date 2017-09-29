@@ -6,9 +6,13 @@
 
     <string name="action_settings">Settings</string>
 
-    <!--Calendar Fragment-->
     <string name="title_calendar">My Calendar</string>
     <string name="title_book_status">Books Status</string>
+    <string name="send">Contacs</string>
+    <string name="ads">Ads</string>
+
+    <string name="finish_book">I finished it!</string>
+    <string name="add_book">Start reading this book</string>
 
     <string name="sun">SUN</string>
     <string name="mon">MON</string>
@@ -19,6 +23,8 @@
     <string name="sat">SAT</string>
     <string name="last_date">30</string>
 
+    <string name="book_is_finished" formatted="false">Book finished: %s</string>
+    <string name="widget_info" formatted="false">Author: %s\nCategory: %s\nYou start read this book on %s</string>
 
     <!--Add Book Screen-->
     <string name="title_activity_add_book">AddBookActivity</string>
@@ -39,6 +45,15 @@
     <!--test ads-->
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+
+    <!--Errors-->
+    <string name="no_data">There are no books yet =(</string>
+
+    <!--Content Descriptions-->
+    <string name="cd_book_label">Book color label</string>
+    <string name="cd_app_logo">Application Logo</string>
+    <string name="cd_next_month">Go to next month</string>
+    <string name="cd_previous_month">Go to previous month</string>
 
 
 </resources>

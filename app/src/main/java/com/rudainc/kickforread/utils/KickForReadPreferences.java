@@ -1,10 +1,18 @@
 package com.rudainc.kickforread.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.rudainc.kickforread.R;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 public class KickForReadPreferences implements KickForReadKeys{
+
+
 
     public static void setBookData(Context context, String book_name, String book_author, String book_category, String book_start){
         PreferenceManager.getDefaultSharedPreferences(context)
@@ -28,50 +36,17 @@ public class KickForReadPreferences implements KickForReadKeys{
     }
 
     public static String getBookInfo(Context context){
-        return PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(BOOK_AUTHOR, "");
+        @SuppressLint("SimpleDateFormat")
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String info =  String.format(context.getString(R.string.widget_info),
+                PreferenceManager.getDefaultSharedPreferences(context).getString(BOOK_AUTHOR, ""),
+                PreferenceManager.getDefaultSharedPreferences(context).getString(BOOK_CATEGORY, ""),
+                dateFormat.format((HelpUtil.setCalendarDate(Long.valueOf(PreferenceManager.getDefaultSharedPreferences(context).getString(BOOK_START, ""))).getTime())));
+        return info;
     }
 
     public static boolean isBookAdded(Context context){
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean(IS_BOOK_ADDED, false);
-    }
-
-    public static final String KEY_WATER_COUNT = "water-count";
-    public static final String KEY_CHARGING_REMINDER_COUNT = "charging-reminder-count";
-
-    private static final int DEFAULT_COUNT = 0;
-
-    synchronized private static void setWaterCount(Context context, int glassesOfWater) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(KEY_WATER_COUNT, glassesOfWater);
-        editor.apply();
-    }
-
-    public static int getWaterCount(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        int glassesOfWater = prefs.getInt(KEY_WATER_COUNT, DEFAULT_COUNT);
-        return glassesOfWater;
-    }
-
-    synchronized public static void incrementWaterCount(Context context) {
-        int waterCount = KickForReadPreferences.getWaterCount(context);
-        KickForReadPreferences.setWaterCount(context, ++waterCount);
-    }
-
-    synchronized public static void incrementChargingReminderCount(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        int chargingReminders = prefs.getInt(KEY_CHARGING_REMINDER_COUNT, DEFAULT_COUNT);
-
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(KEY_CHARGING_REMINDER_COUNT, ++chargingReminders);
-        editor.apply();
-    }
-
-    public static int getChargingReminderCount(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        int chargingReminders = prefs.getInt(KEY_CHARGING_REMINDER_COUNT, DEFAULT_COUNT);
-        return chargingReminders;
     }
 }

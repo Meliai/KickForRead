@@ -101,8 +101,10 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksAdapter
         booksAdapterViewHolder.mAuthor.setText(booksItem.getAuthor());
         booksAdapterViewHolder.mCategory.setText(booksItem.getCategory());
         booksAdapterViewHolder.mStartedDay.setText(dateFormat.format((HelpUtil.setCalendarDate(Long.valueOf(booksItem.getStart_date()))).getTime()));
-        booksAdapterViewHolder.mIsFinished.setText(booksItem.getIsFinished());
+        booksAdapterViewHolder.mIsFinished.setText(String.format(context.getString(R.string.book_is_finished),booksItem.getIsFinished()));
         booksAdapterViewHolder.mLabel.setBackgroundColor(Color.parseColor(booksItem.getLabel()));
+        if (booksItem.getIsFinished().equals("true"))
+            booksAdapterViewHolder.btnFinish.setVisibility(View.INVISIBLE);
     }
 
     @Override

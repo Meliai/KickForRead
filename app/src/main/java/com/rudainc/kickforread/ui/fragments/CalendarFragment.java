@@ -98,11 +98,10 @@ public class CalendarFragment extends BaseFragment implements LoaderManager.Load
     @Override
     public void onResume() {
         super.onResume();
-        Log.i("IS_BOOK",KickForReadPreferences.isBookAdded(getActivity())+"");
         if (KickForReadPreferences.isBookAdded(getActivity()))
             mFab.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.ic_done_white_48dp));
         else
-            mFab.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.ic_menu_camera));
+            mFab.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.ic_add_white_48dp));
     }
 
     private void setPreviousButtonClickEvent() {
