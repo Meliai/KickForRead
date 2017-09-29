@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "976024081630",
+    "firebase_url": "https://kickforread.firebaseio.com",
+    "project_id": "kickforread",
+    "storage_bucket": "kickforread.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976024081630:android:b94801ddb85a8de5",
+        "android_client_info": {
+          "package_name": "com.rudainc.kickforread"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976024081630-2bur65dm8bqfl7i2irsrr93jo3bvl32a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxjz78fCsP8Dj_CJD352mAhtlxLwPsIBI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
