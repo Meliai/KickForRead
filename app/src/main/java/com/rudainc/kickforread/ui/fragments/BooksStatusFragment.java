@@ -1,14 +1,14 @@
 package com.rudainc.kickforread.ui.fragments;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,17 +21,16 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.adapters.BooksAdapter;
 import com.rudainc.kickforread.database.BooksContract;
-import com.rudainc.kickforread.database.DaysContract;
 import com.rudainc.kickforread.models.BooksModel;
 import com.rudainc.kickforread.ui.activities.BaseActivity;
-import com.rudainc.kickforread.ui.activities.BookDetailsActivity;
 import com.rudainc.kickforread.ui.activities.MainActivity;
+import com.rudainc.kickforread.utils.KickForReadKeys;
 import com.rudainc.kickforread.utils.KickForReadPreferences;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BooksStatusFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, BooksAdapter.BooksAdapterOnClickHandler {
+public class BooksStatusFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, BooksAdapter.BooksAdapterOnClickHandler,KickForReadKeys {
 
     private int mPosition = RecyclerView.NO_POSITION;
 
@@ -41,10 +40,14 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
     @BindView(R.id.tv_no_data)
     TextView noData;
 
+    @BindView(R.id.root)
+    NestedScrollView root;
+
+
     private BooksAdapter mBooksAdapter;
 
     private LinearLayoutManager ll;
-    private InterstitialAd mInterstitialAd;
+
     private int lastFirstVisiblePosition;
     private Cursor mCursor;
 
@@ -56,6 +59,18 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
         ButterKnife.bind(this, v);
         getActivity().getSupportLoaderManager().initLoader(ID_LOADER_BOOKS, null, this);
         ( (MainActivity)getActivity()).setToolbarText(getString(R.string.title_book_status));
+
+
+        if (savedInstanceState != null) {
+            final int pos = savedInstanceState.getInt(SCROLL_POSITION);
+            Log.i(SCROLL_POSITION, pos +"");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    root.smoothScrollTo(0, pos);
+                }
+            }, 200);
+        }
         return v;
     }
 
@@ -150,5 +165,11 @@ public class BooksStatusFragment extends BaseFragment implements LoaderManager.L
 //            startActivity(intent);
 //        }
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putFloat(SCROLL_POSITION, rvBooks.getY());
     }
 }

@@ -51,7 +51,12 @@ public class MainActivity extends BaseActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        changeFragment(new CalendarFragment());
+        if (savedInstanceState == null)
+        {
+            // Display the fragment as the main content.
+            changeFragment(new CalendarFragment());
+        }
+
         navigationView.setNavigationItemSelectedListener(this);
 
         loadAds();

@@ -49,5 +49,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:11.4.0'
     //Check fields validation
     compile 'com.mobsandgeeks:android-saripaar:2.0.3'
+    //Analytics
+    compile 'com.google.firebase:firebase-core:11.4.0'
 
 }

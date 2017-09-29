@@ -33,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class AddBookActivity extends BaseActivity implements Validator.ValidationListener {
+public class AddBookActivity extends BaseActivity implements Validator.ValidationListener, KickForReadKeys {
 
     @NotEmpty
     @Length(min = 1, max = 160)
@@ -146,5 +146,15 @@ public class AddBookActivity extends BaseActivity implements Validator.Validatio
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(BOOK_NAME, etTitle.getText().toString().trim());
+        outState.putString(BOOK_AUTHOR, etAuthor.getText().toString().trim());
+        outState.putString(BOOK_CATEGORY, etCategory.getText().toString().trim());
+        outState.putString(BOOK_LABEL,label);
+
     }
 }

@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.rudainc.kickforread.R;
 import com.rudainc.kickforread.database.BooksContract;
 import com.rudainc.kickforread.database.BooksDbHelper;
@@ -31,6 +32,8 @@ public class BaseActivity extends AppCompatActivity {
     private static SQLiteDatabase mDbDays;
     private static SQLiteDatabase mDbBooks;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,7 @@ public class BaseActivity extends AppCompatActivity {
         mDbDays = dbHelper.getWritableDatabase();
         BooksDbHelper booksDbHelper = new BooksDbHelper(this);
         mDbBooks = booksDbHelper.getWritableDatabase();
-
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         ReminderUtilities.scheduleChargingReminder(this);
     }
 
