@@ -4,10 +4,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("D:/Alenka/coding/KickForRead/KickForRead.jks")
-            storePassword "kick23read1990"
-            keyAlias "RudaInc2017"
-            keyPassword "apelsinka1990"
+            storeFile file("******")
+            storePassword "********"
+            keyAlias "*******"
+            keyPassword "*******"
         }
     }
     compileSdkVersion 26
